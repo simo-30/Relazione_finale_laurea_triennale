@@ -12,7 +12,7 @@ typedef struct {
 	ResourceType resource;
 } ProcessType;
 
-ProcessType* create_Processo(int pid, int time_arrive, int duration, ResourceType resource);
-void print_Processo(ProcessType* process);
+ProcessType* create_process(int pid, int time_arrive, int duration, ResourceType resource);
+void print_process(ProcessType* process);
 void destroy_process(ProcessType* process);
 void append_process_onFile(ProcessType* process, const char* nameFile);
