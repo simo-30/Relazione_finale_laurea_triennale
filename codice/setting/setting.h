@@ -16,3 +16,4 @@ typedef struct {
 
 SettingType* read_setting(const char* namefile);
 void destroy_setting(SettingType* setting);
+void print_setting(SettingType* setting);

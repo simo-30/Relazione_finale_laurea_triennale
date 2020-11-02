@@ -30,3 +30,11 @@ void destroy_setting(SettingType* setting) {
 	free(setting);
 	return;
 }
+
+void print_setting(SettingType* setting) {
+	printf("numero di core: %d\n", setting->core);
+	printf("numero di processi: %d\n", setting->pid);
+	printf("tempo medio: %d\n", setting->avg_time);
+	printf("tempo massimo di arrivo: %d\n", setting->max_time);
+	return;
+}

@@ -8,7 +8,13 @@ TwoNumberType desired_media(int media, int gap) {
 	time_t t;
 	srand((unsigned) time(&t));
 	two_number.number1=media - ((rand() % gap)+1);
-	two_number.number2=media + two_number.number1;
+	two_number.number2=(2*media) - two_number.number1;
+	/*if ((two_number.number1 + two_number.number2)/2 == media) {
+		printf("media calcolata correttamente\n");
+	}
+	else {
+		printf("errore nel calcolo della media\n");
+	}*/
 	return two_number;
 }
 
