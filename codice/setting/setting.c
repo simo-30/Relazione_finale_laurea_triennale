@@ -25,3 +25,8 @@ SettingType* read_setting(const char* namefile) {
 	setting->max_time=max_time;
 	return setting;
 }
+
+void destroy_setting(SettingType* setting) {
+	free(setting);
+	return;
+}

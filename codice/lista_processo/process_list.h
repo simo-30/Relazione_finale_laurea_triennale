@@ -16,3 +16,5 @@ typedef struct {
 } ListProcess;
 
 ListProcess* new_listProcess(const char* name);
+void print_listProcess(ListProcess* list);
+void destroy_listProcess(ListProcess* list);

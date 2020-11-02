@@ -3,7 +3,7 @@
  * numero di core
  * numero di processi
  * tempo medio di durata di un processo
- * tempo massimo durata di uno scheduling, ossia il tempo entro il quale vengo generati nuovi burst ai processi già conclusisi e rimessi in coda
+ * tempo massimo di arrivo dei processi
  **/
 #pragma once
 
@@ -11,7 +11,8 @@ typedef struct {
 	int core; //numero di core
 	int pid; //numero di processi
 	int avg_time; //tempo medio
-	int max_time; //tempo massimo
+	int max_time; //tempo massimo di arrivo
 } SettingType;
 
 SettingType* read_setting(const char* namefile);
+void destroy_setting(SettingType* setting);

@@ -9,6 +9,7 @@ ProcessType* create_process(int pid, int time_arrive, int duration, ResourceType
 	proc->time_arrive=time_arrive;
 	proc->duration=duration;
 	proc->resource=resource;
+	proc->is_runnning=NOTRUN;
 	return proc;
 }
 
@@ -18,6 +19,12 @@ void print_process(ProcessType* process) {
 	printf("     time arriving	%d\n", process->time_arrive);
 	printf("     duration		%d\n", process->duration);
 	printf("     resource		%d\n", process->resource);
+	/*if (process->is_runnning==RUN) {
+		printf("     is running     \n");
+	}
+	else {
+		printf("     is not running	\n");
+	}*/
 	printf("******************************\n\n");
 	return;
 }
