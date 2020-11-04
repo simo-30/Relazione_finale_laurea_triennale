@@ -11,3 +11,4 @@ typedef struct {
 
 TwoNumberType desired_media(int media, int gap); //calcola 2 numeri la cui media è quella richiesta passata come parametro, e con un gap dalla media prestabilito
 int random_number(int max); //calcola un numero randomico fra 1 e max
+int random_resource(); 

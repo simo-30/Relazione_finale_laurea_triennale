@@ -1,9 +1,11 @@
 #include "../processo/process.h"
 #include "process_list.h"
 #include "../setting/setting.h"
+#include "../utility/utility.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #pragma once
 
 ListProcess* new_listProcess(const char* name) {
@@ -18,6 +20,7 @@ ListProcess* new_listProcess(const char* name) {
 void print_listProcess(ListProcess* list) {
 	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
 	aux=list->first;
+	printf("%s\n", list->name);
 	int i;
 	for (i=0; i<list->size; i++) {
 		print_process(aux->info);
@@ -52,5 +55,25 @@ void insert_head(ListProcess* list, ProcessType* proc) {
 	ProcessItem* p_item=new_processItem(proc);
 	p_item->next=list->first;
 	list->first=p_item;
+	list->size+=1;
 	return;
+}
+
+ListProcess* generate_listProcess(const char* name_list, const char* file_setting) {
+	ListProcess* list=new_listProcess(name_list);
+	SettingType* setting=read_setting(file_setting);
+	if ((setting->pid % 2) != 0) {
+		//numero di processi dispari
+		ProcessType* proc=create_process((setting->pid - 1), random_number(setting->max_time), setting->avg_time, random_resource());
+		insert_head(list, proc); 
+	}
+	int i;
+	for (i=0; i<(setting->pid - 1); i+=2) {
+		TwoNumberType nums=desired_media(setting->avg_time, (setting->avg_time / 2));
+		ProcessType* p1=create_process(i, random_number(setting->max_time), nums.number1, random_resource());
+		insert_head(list, p1);
+		ProcessType* p2=create_process(i+1, random_number(setting->max_time), nums.number2, random_resource());
+		insert_head(list, p2);
+	}
+	return list;
 }
