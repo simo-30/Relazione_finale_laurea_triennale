@@ -7,10 +7,7 @@ int main() {
 	TwoNumberType nums=desired_media(25, 10);
 	printf("num1: %d\n", nums.number1);
 	printf("num2: %d\n", nums.number2);
-	int i;
-	for (i=0; i<1000; i++) {
 	printf("random num: %d\n", random_number(20));
 	printf("random resource: %d\n", random_resource());
-}
 	return 0;
 }

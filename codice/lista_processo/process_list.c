@@ -62,18 +62,10 @@ void insert_head(ListProcess* list, ProcessType* proc) {
 ListProcess* generate_listProcess(const char* name_list, const char* file_setting) {
 	ListProcess* list=new_listProcess(name_list);
 	SettingType* setting=read_setting(file_setting);
-	if ((setting->pid % 2) != 0) {
-		//numero di processi dispari
-		ProcessType* proc=create_process((setting->pid - 1), random_number(setting->max_time), setting->avg_time, random_resource());
-		insert_head(list, proc); 
-	}
-	int i;
-	for (i=0; i<(setting->pid - 1); i+=2) {
-		TwoNumberType nums=desired_media(setting->avg_time, (setting->avg_time / 2));
-		ProcessType* p1=create_process(i, random_number(setting->max_time), nums.number1, random_resource());
-		insert_head(list, p1);
-		ProcessType* p2=create_process(i+1, random_number(setting->max_time), nums.number2, random_resource());
-		insert_head(list, p2);
-	}
+	/* devo creare un numero di processi datomi da setting->pid
+	 * con tempo medio di durata setting->avg_time
+	 * tempi di arrivo fra 1 e setting->max_time
+	 * e tipo di risorsa richiesta variabile e casuale fra CPU ed I/O 
+	 */
 	return list;
 }
