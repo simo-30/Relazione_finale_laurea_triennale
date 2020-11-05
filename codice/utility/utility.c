@@ -29,3 +29,29 @@ int random_resource() {
 	int r_num=(rand() % 2);
 	return r_num;
 }
+
+int* desired_n_media(int media, int gap, int num) {
+	int* med=(int*)malloc(num*sizeof(int));
+	int i=0;
+	if ((num % 2) != 0) {
+		//num è dispari
+		med[i]=media;
+		i+=1;
+	}
+	while (i<num) {
+		med[i]=media - (i % gap);
+		med[i+1]=media + (i % gap);
+		i+=2;
+	}
+	return med;
+}
+
+int* n_random_number(int max, int n) {
+	int* n_rand=(int*)malloc(n*sizeof(int));
+	srand(time(NULL));
+	int i;
+	for (i=0; i<n; i++) {
+		n_rand[i]=rand() % max;
+	}
+	return n_rand;
+}

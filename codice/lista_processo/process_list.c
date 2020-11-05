@@ -67,5 +67,6 @@ ListProcess* generate_listProcess(const char* name_list, const char* file_settin
 	 * tempi di arrivo fra 1 e setting->max_time
 	 * e tipo di risorsa richiesta variabile e casuale fra CPU ed I/O 
 	 */
+	int* time_duration=desired_n_media(setting->avg_time, (setting->avg_time / 2), setting->pid);
 	return list;
 }
