@@ -18,18 +18,6 @@ TwoNumberType desired_media(int media, int gap) {
 	return two_number;
 }
 
-int random_number(int max) {
-	srand(time(NULL));
-	int r_num=(rand() % max)+1;
-	return r_num;
-}
-
-int random_resource() {
-	srand(time(NULL));
-	int r_num=(rand() % 2);
-	return r_num;
-}
-
 int* desired_n_media(int media, int gap, int num) {
 	int* med=(int*)malloc(num*sizeof(int));
 	int i=0;

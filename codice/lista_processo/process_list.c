@@ -68,5 +68,15 @@ ListProcess* generate_listProcess(const char* name_list, const char* file_settin
 	 * e tipo di risorsa richiesta variabile e casuale fra CPU ed I/O 
 	 */
 	int* time_duration=desired_n_media(setting->avg_time, (setting->avg_time / 2), setting->pid);
+	int* time_arriving=n_random_number(setting->max_time, setting->pid);
+	int* res=n_random_number(2, setting->pid);
+	int i;
+	for (i=0; i<setting->pid; i++) {
+		if (time_arriving[i] == 0) {
+			time_arriving[i]=1;
+		}
+		ProcessType* p_type=create_process(i, time_arriving[i], time_duration[i], res[i]);
+		insert_head(list, p_type);
+	}
 	return list;
 }
