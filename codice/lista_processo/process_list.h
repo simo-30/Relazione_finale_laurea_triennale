@@ -1,7 +1,8 @@
 /**
  * header per la gestione di una lista di processi
  **/
-#include "../processo/process.h"
+#include "../utility/macro.h" 
+#include PROCESS_H
 #pragma once
 
 typedef struct item{
@@ -21,3 +22,5 @@ void destroy_listProcess(ListProcess* list);
 void insert_head(ListProcess* list, ProcessType* proc);
 ProcessItem* new_processItem(ProcessType* proc);
 ListProcess* generate_listProcess(const char* name_list, const char* file_setting); //genera una lista dei processi completa
+ListProcess* extract_process_by_time(ListProcess* list, int timing); /*data la lista dei processi e il tempo attuale (timing)
+	viene creata e restituita una lista dei processi i quali hanno tempo di arrivo uguale a quello attuale*/

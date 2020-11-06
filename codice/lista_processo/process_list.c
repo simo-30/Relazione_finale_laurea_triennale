@@ -1,7 +1,8 @@
-#include "../processo/process.h"
+#include "../utility/macro.h"
+#include PROCESS_H
 #include "process_list.h"
-#include "../setting/setting.h"
-#include "../utility/utility.h"
+#include SETTING_H
+#include UTILITY_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,6 +19,10 @@ ListProcess* new_listProcess(const char* name) {
 }
 
 void print_listProcess(ListProcess* list) {
+	if (list->size == 0) {
+		printf("La lista %s è vuota\n", list->name);
+		return;
+	}
 	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
 	aux=list->first;
 	printf("%s\n", list->name);
@@ -79,4 +84,18 @@ ListProcess* generate_listProcess(const char* name_list, const char* file_settin
 		insert_head(list, p_type);
 	}
 	return list;
+}
+
+ListProcess* extract_process_by_time(ListProcess* list, int timing) {
+	ListProcess* arriving_list=new_listProcess("Processi in arrivo");
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	int i;
+	for (i=0; i<list->size; i++) {
+		if (aux->info->time_arrive == timing) {
+			insert_head(arriving_list, aux->info);
+		}
+		aux=aux->next;
+	}
+	return arriving_list;
 }

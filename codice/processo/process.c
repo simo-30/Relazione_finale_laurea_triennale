@@ -1,4 +1,5 @@
-#include "process.h"
+#include "../utility/macro.h"
+#include PROCESS_H
 #include <stdio.h>
 #include <stdlib.h>
 #pragma once
