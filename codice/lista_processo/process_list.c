@@ -99,3 +99,18 @@ ListProcess* extract_process_by_time(ListProcess* list, int timing) {
 	}
 	return arriving_list;
 }
+
+void new_burst_for_list(ListProcess* list, int median_duration, int min_time) {
+	int* time_duration=desired_n_media(median_duration, (median_duration / 2), list->size);
+	int* res=n_random_number(2, list->size);
+	int* time_arrive=n_random_number((min_time * 2), list->size);
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		aux->info->duration=time_duration[i];
+		aux->info->resource=res[i];
+		aux->info->time_arrive=time_arrive[i] + min_time + 1;
+	}
+	return;
+}
