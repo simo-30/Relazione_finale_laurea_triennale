@@ -114,3 +114,63 @@ void new_burst_for_list(ListProcess* list, int median_duration, int min_time) {
 	}
 	return;
 }
+
+int count_is_not_state(ListProcess* list) {
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	int i, num;
+	num=0;
+	for (i=0; i<list->size; i++) {
+		num+=is_not_state(aux->info);
+		aux=aux->next;
+	}
+	return num;
+}
+
+int count_is_ready(ListProcess* list) {
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	int i, num;
+	num=0;
+	for (i=0; i<list->size; i++) {
+		num+=is_ready(aux->info);
+		aux=aux->next;
+	}
+	return num;
+}
+
+int count_is_running(ListProcess* list) {
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	int i, num;
+	num=0;
+	for (i=0; i<list->size; i++) {
+		num+=is_running(aux->info);
+		aux=aux->next;
+	}
+	return num;
+}
+
+int count_is_terminated(ListProcess* list) {
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	int i, num;
+	num=0;
+	for (i=0; i<list->size; i++) {
+		num+=is_terminated(aux->info);
+		aux=aux->next;
+	}
+	return num;
+}
+
+int count_is_waiting(ListProcess* list) {
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	int i, num;
+	num=0;
+	for (i=0; i<list->size; i++) {
+		num+=is_waiting(aux->info);
+		aux=aux->next;
+	}
+	return num;
+}

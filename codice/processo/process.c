@@ -10,7 +10,7 @@ ProcessType* create_process(int pid, int time_arrive, int duration, ResourceType
 	proc->time_arrive=time_arrive;
 	proc->duration=duration;
 	proc->resource=resource;
-	proc->is_runnning=NOTRUN;
+	proc->state=NOT_STATE;
 	return proc;
 }
 
@@ -20,12 +20,7 @@ void print_process(ProcessType* process) {
 	printf("     time arriving	%d\n", process->time_arrive);
 	printf("     duration		%d\n", process->duration);
 	printf("     resource		%d\n", process->resource);
-	/*if (process->is_runnning==RUN) {
-		printf("     is running     \n");
-	}
-	else {
-		printf("     is not running	\n");
-	}*/
+	//printf("     state	        %d\n", process->state);
 	printf("******************************\n\n");
 	return;
 }
@@ -48,4 +43,39 @@ void append_process_onFile(ProcessType* process, const char* nameFile) {
 	fprintf(fd, "******************************\n");
 	fclose(fd);
 	return;
+}
+
+int is_not_state(ProcessType* proc) {
+	if (proc->state == NOT_STATE) {
+		return 1;
+	}
+	return 0;
+}
+
+int is_running(ProcessType* proc) {
+	if (proc->state == RUNNING) {
+		return 1;
+	}
+	return 0;
+}
+
+int is_waiting(ProcessType* proc) {
+	if (proc->state == WAITING) {
+		return 1;
+	}
+	return 0;
+}
+
+int is_ready(ProcessType* proc) {
+	if (proc->state == READY) {
+		return 1;
+	}
+	return 0;
+}
+
+int is_terminated(ProcessType* proc) {
+	if (proc->state == TERMINATED) {
+		return 1;
+	}
+	return 0;
 }

@@ -26,6 +26,7 @@ int main() {
 		new_burst_for_list(l, 10, i+1);
 		print_listProcess(l);
 	}
+	printf("\nCount not state: %d\n", count_is_not_state(list));
 	destroy_listProcess(list);
 	return 0;
 }
