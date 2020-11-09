@@ -8,7 +8,7 @@
 
 int main() {
 	ProcessType* p1=create_process(2, 4, 5, 0);
-	ListProcess* list=new_listProcess("Lista 1");
+	ListProcess* list=new_listProcess();
 	print_listProcess(list);
 	insert_head(list, p1);
 	print_listProcess(list);
@@ -17,7 +17,7 @@ int main() {
 	print_listProcess(list);
 	destroy_process(p1);
 	destroy_process(p2);
-	list=generate_listProcess("lista2", "../setting/setting.txt");
+	list=generate_listProcess("../setting/setting.txt");
 	print_listProcess(list);
 	int i;
 	printf("\nCount not state: %d\n", count_is_not_state(list));

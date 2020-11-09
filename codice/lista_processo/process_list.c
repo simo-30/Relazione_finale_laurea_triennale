@@ -9,23 +9,20 @@
 #include <time.h>
 #pragma once
 
-ListProcess* new_listProcess(const char* name) {
+ListProcess* new_listProcess() {
 	ListProcess* list=(ListProcess*)malloc(sizeof(ListProcess));
 	list->first=NULL;
 	list->size=0;
-	list->name=malloc((strlen(name) + 1)*sizeof(char));
-	strcpy(list->name, name);
 	return list;
 }
 
 void print_listProcess(ListProcess* list) {
 	if (list->size == 0) {
-		printf("La lista %s è vuota\n", list->name);
+		printf("La lista è vuota\n");
 		return;
 	}
 	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
 	aux=list->first;
-	printf("%s\n", list->name);
 	int i;
 	for (i=0; i<list->size; i++) {
 		print_process(aux->info);
@@ -42,7 +39,6 @@ void destroy_listProcess(ListProcess* list) {
 		destroy_process(aux->info);
 		aux=aux->next;
 	}
-	free(list->name);
 	free(list->first);
 	free(list);
 	return;
@@ -64,8 +60,8 @@ void insert_head(ListProcess* list, ProcessType* proc) {
 	return;
 }
 
-ListProcess* generate_listProcess(const char* name_list, const char* file_setting) {
-	ListProcess* list=new_listProcess(name_list);
+ListProcess* generate_listProcess(const char* file_setting) {
+	ListProcess* list=new_listProcess();
 	SettingType* setting=read_setting(file_setting);
 	/* devo creare un numero di processi datomi da setting->pid
 	 * con tempo medio di durata setting->avg_time
@@ -172,5 +168,54 @@ void new_burst_for_list(ListProcess* list, int min_time, int max_time) {
 		}
 		aux=aux->next;
 	}
+	return;
+}
+
+ListProcess* generate_listProcess_from_setting(SettingType* setting) {
+	ListProcess* list=new_listProcess();
+	/* devo creare un numero di processi datomi da setting->pid
+	 * con tempo medio di durata setting->avg_time
+	 * tempi di arrivo fra 1 e setting->max_time
+	 * e tipo di risorsa richiesta variabile e casuale fra CPU ed I/O 
+	 */
+	int* time_duration=desired_n_media(setting->avg_time, (setting->avg_time / 2), setting->pid);
+	int* time_arriving=n_random_number(setting->max_time, setting->pid);
+	int* res=n_random_number(2, setting->pid);
+	int i;
+	for (i=0; i<setting->pid; i++) {
+		if (time_arriving[i] == 0) {
+			time_arriving[i]=1;
+		}
+		ProcessType* p_type=create_process(i, time_arriving[i], time_duration[i], res[i]);
+		insert_head(list, p_type);
+	}
+	return list;
+}
+
+void adding_waiting_time(ListProcess* list, StatisticsType* stat) {
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		if (aux->info->state == WAITING) {
+			stat->waiting_time[i]+=1;
+		}
+		aux=aux->next;
+	}
+	update_medium_waiting_time(stat);
+	return;
+}
+
+void adding_completing_time(ListProcess* list, StatisticsType* stat) {
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		if (aux->info->state == TERMINATED) {
+			stat->completing_time[i]+=1;
+		}
+		aux=aux->next;
+	}
+	update_medium_completing_time(stat);
 	return;
 }

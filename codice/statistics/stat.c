@@ -1,16 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "stat.h"
 #pragma once
 
-StatisticsType* new_statisticsType(int num_proc, int num_core, const char* name_scheduling) {
+StatisticsType* new_statisticsType(int num_proc, int num_core) {
 	StatisticsType* stat=(StatisticsType*)malloc(sizeof(StatisticsType));
 	stat->num_proc=num_proc;
 	stat->num_core=num_core;
 	stat->medium_wait_time=0;
-	stat->name_scheduling=malloc((strlen(name_scheduling) + 1)*sizeof(char));
-	strcpy(stat->name_scheduling, name_scheduling);
 	stat->waiting_time=malloc(num_proc * sizeof(int));
 	stat->completing_time=malloc(num_proc * sizeof(int));
 	int i;
@@ -42,7 +39,7 @@ void print_completing_time(int n, int* completing_time) {
 }
 
 void print_statistics(StatisticsType* stat) {
-	printf("Statistiche della politica di scheduling %s\n", stat->name_scheduling);
+	printf("Statistiche della politica di scheduling\n");
 	printf("Numero di core: %d\n", stat->num_core);
 	printf("Numero di processi: %d\n", stat->num_proc);
 	printf("Tempo medio di attesa: %.3f\n", stat->medium_wait_time);
@@ -67,5 +64,18 @@ void update_medium_completing_time(StatisticsType* stat) {
 		tot_compl+=stat->completing_time[i];
 	}
 	stat->medium_complete_time= tot_compl /stat->num_proc;
+	return;
+}
+
+void write_on_file(StatisticsType* stat, const char* filename) {
+	//i dati saranno salvati in un file csv, nel seguente ordine:
+	//numero di core, numero di processi, tempo medio di attesa, tempo medio di completamento
+	FILE* fd=fopen(filename, "a");
+	if (fd == NULL) {
+		printf("Errore nell'apertura del file %s\n", filename);
+		return;
+	}
+	fprintf(fd, "%d,%d,%.3f,%.3f", stat->num_core, stat->num_proc, stat->medium_wait_time, stat->medium_complete_time);
+	fclose(fd);
 	return;
 }

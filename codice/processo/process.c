@@ -33,7 +33,7 @@ void destroy_process(ProcessType* process) {
 void append_process_onFile(ProcessType* process, const char* nameFile) {
 	FILE* fd=fopen(nameFile, "a");
 	if (fd==NULL) {
-		perror("Errore nell'apertura del file\n");
+		printf("Errore nell'apertura del file\n");
 		return;
 	}
 	fprintf(fd, "**** process pid	%d ****\n", process->pid);
