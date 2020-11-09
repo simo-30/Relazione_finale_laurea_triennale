@@ -20,12 +20,6 @@ int main() {
 	list=generate_listProcess("lista2", "../setting/setting.txt");
 	print_listProcess(list);
 	int i;
-	for (i=0; i<100; i++) {
-		ListProcess* l=extract_process_by_time(list, i+1);
-		print_listProcess(l);
-		new_burst_for_list(l, 10, i+1);
-		print_listProcess(l);
-	}
 	printf("\nCount not state: %d\n", count_is_not_state(list));
 	destroy_listProcess(list);
 	return 0;

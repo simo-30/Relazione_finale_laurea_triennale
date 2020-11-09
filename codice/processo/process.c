@@ -79,3 +79,10 @@ int is_terminated(ProcessType* proc) {
 	}
 	return 0;
 }
+
+int is_burst(ProcessType* proc) {
+	if (proc->state == BURST) {
+		return 1;
+	}
+	return 0;
+}

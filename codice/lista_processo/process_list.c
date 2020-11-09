@@ -86,35 +86,6 @@ ListProcess* generate_listProcess(const char* name_list, const char* file_settin
 	return list;
 }
 
-ListProcess* extract_process_by_time(ListProcess* list, int timing) {
-	ListProcess* arriving_list=new_listProcess("Processi in arrivo");
-	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
-	aux=list->first;
-	int i;
-	for (i=0; i<list->size; i++) {
-		if (aux->info->time_arrive == timing) {
-			insert_head(arriving_list, aux->info);
-		}
-		aux=aux->next;
-	}
-	return arriving_list;
-}
-
-void new_burst_for_list(ListProcess* list, int median_duration, int min_time) {
-	int* time_duration=desired_n_media(median_duration, (median_duration / 2), list->size);
-	int* res=n_random_number(2, list->size);
-	int* time_arrive=n_random_number((min_time * 2), list->size);
-	int i;
-	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
-	aux=list->first;
-	for (i=0; i<list->size; i++) {
-		aux->info->duration=time_duration[i];
-		aux->info->resource=res[i];
-		aux->info->time_arrive=time_arrive[i] + min_time + 1;
-	}
-	return;
-}
-
 int count_is_not_state(ListProcess* list) {
 	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
 	aux=list->first;
@@ -173,4 +144,33 @@ int count_is_waiting(ListProcess* list) {
 		aux=aux->next;
 	}
 	return num;
+}
+
+int count_is_burst(ListProcess* list) {
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	int i, num;
+	num=0;
+	for (i=0; i<list->size; i++) {
+		num+=is_burst(aux->info);
+		aux=aux->next;
+	}
+	return num;
+}
+
+void new_burst_for_list(ListProcess* list, int min_time, int max_time) {
+	srand(time(NULL));
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		if (aux->info->state == BURST) {
+			aux->info->duration = ( rand() % aux->info->duration ) +1;
+			aux->info->resource = rand() % 2;
+			aux->info->time_arrive = ( rand() % (max_time*2) ) + min_time + 1;
+			aux->info->state = NOT_STATE;
+		}
+		aux=aux->next;
+	}
+	return;
 }
