@@ -5,7 +5,7 @@
 
 typedef enum {CPU=0, IO=1} ResourceType;
 
-typedef enum {NOT_STATE=0, RUNNING=1, WAITING=2, READY=3, TERMINATED=4, BURST=6} StateType; /* tipo di dato per poter verificare in quale stato sia il processo
+typedef enum {NOT_STATE=0, RUNNING=1, WAITING=2, READY=3, TERMINATED=4, BURST=5} StateType; /* tipo di dato per poter verificare in quale stato sia il processo
 	* NOT_STATE significa che il processo è in lista ma deve ancora arrivare
 	* RUNNING significa che il processo è in esecuzione
 	* WAITING significa che il processo è in attesa della risorsa da utilizzare, è già stato schedulato 
@@ -31,3 +31,8 @@ int is_waiting(ProcessType* proc); //ritorna 1 se è in WAITING, 0 altrimenti
 int is_ready(ProcessType* proc); //ritorna 1 se è in READY, 0 altrimenti
 int is_terminated(ProcessType* proc); //ritorna 1 se è in TERMINATED, 0 altrimenti
 int is_burst(ProcessType* proc); //ritorna 1 se è in BURST, 0 altrimenti
+void to_run(ProcessType* proc);
+void to_wait(ProcessType* proc);
+void to_ready(ProcessType* proc);
+char* state_to_string(ProcessType* proc);
+void to_burst(ProcessType* proc);

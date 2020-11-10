@@ -8,3 +8,5 @@
 
 void fcfs_running(const char* name_setting);
 void fcfs_scheduler(SettingType* setting); 
+void scheduling_fcfs(ListProcess* list, int timing, int* pid_proc, int dim_pid_proc);
+void run_process(ListProcess* list, int* pid_proc, int dim_pid_proc, int core);

@@ -12,4 +12,4 @@
 #define FCFS_H "../FCFS/fcfs.h"
 
 /* macro per i file di setting */
-#define SET_1 "../setting/setting_1.txt"
+#define SET_1 "../setting/setting.txt"

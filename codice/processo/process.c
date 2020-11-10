@@ -20,7 +20,7 @@ void print_process(ProcessType* process) {
 	printf("     time arriving	%d\n", process->time_arrive);
 	printf("     duration		%d\n", process->duration);
 	printf("     resource		%d\n", process->resource);
-	//printf("     state	        %d\n", process->state);
+	printf("     state	        %s\n", state_to_string(process));
 	printf("******************************\n\n");
 	return;
 }
@@ -40,6 +40,7 @@ void append_process_onFile(ProcessType* process, const char* nameFile) {
 	fprintf(fd, "     time arriving	%d\n", process->time_arrive);
 	fprintf(fd, "     duration		%d\n", process->duration);
 	fprintf(fd, "     resource		%d\n", process->resource);
+	fprintf(fd, "     state	        %s\n", state_to_string(process));
 	fprintf(fd, "******************************\n");
 	fclose(fd);
 	return;
@@ -85,4 +86,41 @@ int is_burst(ProcessType* proc) {
 		return 1;
 	}
 	return 0;
+}
+
+void to_run(ProcessType* proc) {
+	proc->state=RUNNING;
+	return;
+}
+
+void to_wait(ProcessType* proc) {
+	proc->state=WAITING;
+	return;
+}
+
+void to_ready(ProcessType* proc) {
+	proc->state=READY;
+	return;
+}
+
+char* state_to_string(ProcessType* proc) {
+	switch (proc->state) {
+		case 0:
+			return "NOT_STATE";
+		case 1:
+			return "RUNNING";
+		case 2:
+			return "WAITING";
+		case 3:
+			return "READY";
+		case 4:
+			return "TERMINATED";
+		case 5:
+			return "BURST";
+		}
+}
+
+void to_burst(ProcessType* proc) {
+	proc->state=BURST;
+	return;
 }

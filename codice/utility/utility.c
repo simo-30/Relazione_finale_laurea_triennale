@@ -43,3 +43,49 @@ int* n_random_number(int max, int n) {
 	}
 	return n_rand;
 }
+
+int* new_array_negative_inizialized(int n) {
+	int* arr=(int*)malloc(n*sizeof(int));
+	int i;
+	for (i=0; i<n; i++) {
+		arr[i]=-1;
+	}
+	return arr;
+}
+
+void insert_first_possible(int* arr, int dim_arr, int val) {
+	int i;
+	for (i=0; i<dim_arr; i++) {
+		if (arr[i]==-1) {
+			arr[i]=val;
+			return;
+		}
+	}
+	printf("Errore: array pieno\n");
+	return;
+}
+
+void scaling_array(int* arr, int dim, int val) {
+	int i;
+	for (i=0; i<dim; i++) {
+		if (arr[i]==val) {
+			while (i<dim) {
+				if ((i+1)==dim) {
+					arr[i]=-1;
+					return;
+				}
+				arr[i]=arr[i+1];
+				i+=1;
+			}
+			return;
+		}
+	}
+}
+
+void print_array_int(int* arr, int dim) {
+	int i;
+	for (i=0; i<dim; i++) {
+		printf("%d\n", arr[i]);
+	}
+	return;
+}

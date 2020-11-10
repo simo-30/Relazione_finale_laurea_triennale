@@ -41,6 +41,7 @@ void destroy_listProcess(ListProcess* list) {
 	}
 	free(list->first);
 	free(list);
+	free(aux);
 	return;
 }
 
@@ -192,7 +193,7 @@ ListProcess* generate_listProcess_from_setting(SettingType* setting) {
 	return list;
 }
 
-void adding_waiting_time(ListProcess* list, StatisticsType* stat) {
+void adding_waiting_time_in_stat(ListProcess* list, StatisticsType* stat) {
 	int i;
 	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
 	aux=list->first;
@@ -206,7 +207,7 @@ void adding_waiting_time(ListProcess* list, StatisticsType* stat) {
 	return;
 }
 
-void adding_completing_time(ListProcess* list, StatisticsType* stat) {
+void adding_completing_time_in_stat(ListProcess* list, StatisticsType* stat) {
 	int i;
 	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
 	aux=list->first;
@@ -217,5 +218,22 @@ void adding_completing_time(ListProcess* list, StatisticsType* stat) {
 		aux=aux->next;
 	}
 	update_medium_completing_time(stat);
+	return;
+}
+
+void write_listProcess_on_file(ListProcess* list, const char* filename) {
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		append_process_onFile(aux->info, filename);
+		aux=aux->next;
+	}
+	return;
+}
+
+void update_statistics(ListProcess* list, StatisticsType* stat) {
+	adding_completing_time_in_stat(list, stat);
+	adding_waiting_time_in_stat(list, stat);
 	return;
 }
