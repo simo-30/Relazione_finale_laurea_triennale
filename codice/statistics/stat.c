@@ -75,7 +75,7 @@ void write_on_file(StatisticsType* stat, const char* filename) {
 		printf("Errore nell'apertura del file %s\n", filename);
 		return;
 	}
-	fprintf(fd, "%d,%d,%.3f,%.3f", stat->num_core, stat->num_proc, stat->medium_wait_time, stat->medium_complete_time);
+	fprintf(fd, "%d,%d,%.3f,%.3f\n", stat->num_core, stat->num_proc, stat->medium_wait_time, stat->medium_complete_time);
 	fclose(fd);
 	return;
 }
