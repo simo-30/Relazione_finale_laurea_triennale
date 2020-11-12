@@ -2,6 +2,7 @@
 #include PROCESS_H
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #pragma once
 
 ProcessType* create_process(int pid, int time_arrive, int duration, ResourceType resource) {
@@ -122,5 +123,18 @@ char* state_to_string(ProcessType* proc) {
 
 void to_burst(ProcessType* proc) {
 	proc->state=BURST;
+	return;
+}
+
+void new_burst_for_process(ProcessType* proc, int min_time, int max_time, int avg_time) {
+	srand(time(NULL));
+	proc->duration = ( rand() % avg_time ) +1;
+	proc->resource = rand() % 2;
+	proc->time_arrive = ( rand() % (max_time*2) ) + min_time + 1;
+	return;
+}
+
+void to_terminated(ProcessType* proc) {
+	proc->state=TERMINATED;
 	return;
 }

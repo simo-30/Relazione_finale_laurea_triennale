@@ -89,3 +89,13 @@ void print_array_int(int* arr, int dim) {
 	}
 	return;
 }
+
+int is_in_array(int* arr, int dim, int val) {
+	int i;
+	for (i=0; i<dim; i++) {
+		if (arr[i]==val) {
+			return 1;
+		}
+	}
+	return 0;
+}

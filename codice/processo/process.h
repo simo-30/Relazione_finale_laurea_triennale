@@ -36,3 +36,5 @@ void to_wait(ProcessType* proc);
 void to_ready(ProcessType* proc);
 char* state_to_string(ProcessType* proc);
 void to_burst(ProcessType* proc);
+void new_burst_for_process(ProcessType* proc, int min_time, int max_time, int avg_time);
+void to_terminated(ProcessType* proc);
