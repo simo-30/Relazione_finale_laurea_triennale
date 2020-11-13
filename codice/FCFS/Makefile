@@ -10,4 +10,4 @@ run:
 	./$(exe)
 
 clean:
-	rm $(exe) *.txt *.csv
+	rm $(exe) ../file/result/result_test.csv

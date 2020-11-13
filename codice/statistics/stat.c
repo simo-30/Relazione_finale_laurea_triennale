@@ -8,6 +8,7 @@ StatisticsType* new_statisticsType(int num_proc, int num_core) {
 	stat->num_proc=num_proc;
 	stat->num_core=num_core;
 	stat->medium_wait_time=0;
+	stat->medium_complete_time=0;
 	stat->waiting_time=malloc(num_proc * sizeof(int));
 	stat->completing_time=malloc(num_proc * sizeof(int));
 	int i;
@@ -42,8 +43,8 @@ void print_statistics(StatisticsType* stat) {
 	printf("Statistiche della politica di scheduling\n");
 	printf("Numero di core: %d\n", stat->num_core);
 	printf("Numero di processi: %d\n", stat->num_proc);
-	printf("Tempo medio di attesa: %.3f\n", stat->medium_wait_time);
-	printf("Tempo medio di completamento: %.3f\n", stat->medium_complete_time);
+	printf("Tempo medio di attesa: %d\n", stat->medium_wait_time);
+	printf("Tempo medio di completamento: %d\n", stat->medium_complete_time);
 	return;
 }
 
@@ -75,7 +76,7 @@ void write_on_file(StatisticsType* stat, const char* filename) {
 		printf("Errore nell'apertura del file %s\n", filename);
 		return;
 	}
-	fprintf(fd, "%d,%d,%.3f,%.3f\n", stat->num_core, stat->num_proc, stat->medium_wait_time, stat->medium_complete_time);
+	fprintf(fd, "%d,%d,%d,%d\n", stat->num_core, stat->num_proc, stat->medium_wait_time, stat->medium_complete_time);
 	fclose(fd);
 	return;
 }

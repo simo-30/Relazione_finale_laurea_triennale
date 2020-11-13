@@ -8,8 +8,8 @@ typedef struct {
 	int num_core;
 	int* waiting_time; //per ogni processo sarà assegnato un tempo totale di attesa prima di essere stato schedulato
 	int* completing_time; //per ogni processo sarà assegnato un tempo totale di completamento
-	float medium_wait_time; //tempo medio di attesa
-	float medium_complete_time; //tempo medio di completamento
+	int medium_wait_time; //tempo medio di attesa
+	int medium_complete_time; //tempo medio di completamento
 } StatisticsType;
 
 StatisticsType* new_statisticsType(int num_proc, int num_core);
