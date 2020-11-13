@@ -19,6 +19,15 @@ int main() {
 		fcfs_running(SET_1, RES_FCFS_1);
 		fcfs_running(SET_2, RES_FCFS_2);
 		fcfs_running(SET_3, RES_FCFS_3);
+		fcfs_running(SET_4, RES_FCFS_4);
+		fcfs_running(SET_5, RES_FCFS_5);
+		fcfs_running(SET_6, RES_FCFS_6);
+		fcfs_running(SET_7, RES_FCFS_7);
+		fcfs_running(SET_8, RES_FCFS_8);
+		fcfs_running(SET_9, RES_FCFS_9);
+		fcfs_running(SET_10, RES_FCFS_10);
+		fcfs_running(SET_11, RES_FCFS_11);
+		fcfs_running(SET_12, RES_FCFS_12);
 	}
 	printf("\nFINE\n");
 	return 0;

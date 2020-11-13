@@ -212,7 +212,7 @@ void adding_completing_time_in_stat(ListProcess* list, StatisticsType* stat) {
 	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
 	aux=list->first;
 	for (i=0; i<list->size; i++) {
-		if (is_not_state(aux->info) == 0 && is_terminated(aux->info) == 1) {
+		if (is_not_state(aux->info) == 0 && is_terminated(aux->info) == 0) {
 			stat->completing_time[i]+=1;
 		}
 		aux=aux->next;
