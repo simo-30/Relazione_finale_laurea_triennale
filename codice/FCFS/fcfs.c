@@ -11,7 +11,7 @@
 #include <time.h>
 #pragma once
 
-void fcfs_scheduler(SettingType* setting) {
+void fcfs_scheduler(SettingType* setting, const char* result) {
 	ListProcess* list=generate_listProcess_from_setting(setting);
 	StatisticsType* stat=new_statisticsType(setting->pid, setting->core);
 	int timing;
@@ -46,17 +46,17 @@ void fcfs_scheduler(SettingType* setting) {
 		fcfs_to_terminated_proc(list, pid_proc, setting->pid);
 		update_statistics(list, stat);
 	}
-	write_on_file(stat, "stat.csv");
+	write_on_file(stat, result);
 	return;
 }
 
-void fcfs_running(const char* name_setting) {
+void fcfs_running(const char* name_setting, const char* result) {
 	SettingType* setting=read_setting(name_setting);
 	if (setting->core == 0 || setting->pid == 0) {
 		printf("Errore nel file di setting, numero di core o numero di processi NON valido\n");
 		return;
 	}
-	fcfs_scheduler(setting);
+	fcfs_scheduler(setting, result);
 	return;
 }
 
@@ -98,22 +98,30 @@ void fcfs_to_waiting_proc(ListProcess* list, int timing, int* proc, int dim) {
 
 void fcfs_to_running_proc(ListProcess* list, int timing, int* proc, int dim, int core) {
 	int i;
-	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
-	aux=list->first;
-	for (i=0; i<list->size; i++) {
-		if (aux->info->state == READY) {
-			to_run(aux->info);
-			if (count_is_running(list) == core) {
-				return;
-			}
+	for (i=0; i<dim; i++) {
+		ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+		aux=list->first;
+		int j;
+		if (proc[i]==-1) {
+			return;
 		}
-		if (aux->info->state == WAITING) {
-			to_run(aux->info);
-			if (count_is_running(list) == core) {
-				return;
+		for (j=0; j<list->size; j++) {
+			if (aux->info->pid==proc[i]) {
+				if (is_waiting(aux->info)==1) {
+					to_run(aux->info);
+					if (count_is_running(list)==core) {
+						return;
+					}
+				}
+				if (is_ready(aux->info)==1) {
+					to_run(aux->info);
+					if (count_is_running(list)==core) {
+						return;
+					}
+				}
 			}
+			aux=aux->next;
 		}
-		aux=aux->next;
 	}
 	return;
 }

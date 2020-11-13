@@ -6,8 +6,8 @@
 #include STAT_H
 #pragma once
 
-void fcfs_running(const char* name_setting);
-void fcfs_scheduler(SettingType* setting); 
+void fcfs_running(const char* name_setting, const char* result);
+void fcfs_scheduler(SettingType* setting, const char* result); 
 void fcfs_to_ready_proc(ListProcess* list, int timing, int* proc, int dim);
 void fcfs_to_waiting_proc(ListProcess* list, int timing, int* proc, int dim);
 void fcfs_to_running_proc(ListProcess* list, int timing, int* proc, int dim, int core);

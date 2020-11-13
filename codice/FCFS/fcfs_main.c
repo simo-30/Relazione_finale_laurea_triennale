@@ -12,6 +12,6 @@
 #pragma once
 
 int main() {
-	fcfs_running(SET_1);
+	fcfs_running(SET_1, "stat.txt");
 	return 0;
 }
