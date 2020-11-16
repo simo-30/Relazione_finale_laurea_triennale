@@ -53,7 +53,7 @@ void fcfs_scheduler(SettingType* setting, const char* result) {
 void fcfs_running(const char* name_setting, const char* result) {
 	SettingType* setting=read_setting(name_setting);
 	if (setting->core == 0 || setting->pid == 0) {
-		printf("Errore nel file di setting, numero di core o numero di processi NON valido\n");
+		printf("Errore nel file di setting %s, numero di core o numero di processi NON valido\n", name_setting);
 		return;
 	}
 	fcfs_scheduler(setting, result);
@@ -87,9 +87,7 @@ void fcfs_to_waiting_proc(ListProcess* list, int timing, int* proc, int dim) {
 	aux=list->first;
 	for (i=0; i<list->size; i++) {
 		if (is_ready(aux->info) == 1) {
-			if (is_in_array(proc, dim, aux->info->pid) == 1) {
-				to_wait(aux->info);
-			}
+			to_wait(aux->info);
 		}
 		aux=aux->next;
 	}
@@ -110,12 +108,14 @@ void fcfs_to_running_proc(ListProcess* list, int timing, int* proc, int dim, int
 				if (is_waiting(aux->info)==1) {
 					to_run(aux->info);
 					if (count_is_running(list)==core) {
+						fcfs_to_waiting_proc(list, timing, proc, dim);
 						return;
 					}
 				}
 				if (is_ready(aux->info)==1) {
 					to_run(aux->info);
 					if (count_is_running(list)==core) {
+						fcfs_to_waiting_proc(list, timing, proc, dim);
 						return;
 					}
 				}

@@ -10,6 +10,7 @@
 
 /* macro per le varie politiche di scheduling */
 #define FCFS_H "../FCFS/fcfs.h"
+#define RR_H "../RR/rr.h"
 
 /* macro per i file di setting */
 #define SET_TEST "../setting/setting.txt"
@@ -43,3 +44,4 @@
 
 /* macro numeriche */
 #define NUM_CICLI 20
+#define QUANTUM 5
