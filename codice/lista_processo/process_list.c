@@ -237,3 +237,12 @@ void update_statistics(ListProcess* list, StatisticsType* stat) {
 	adding_waiting_time_in_stat(list, stat);
 	return;
 }
+
+int count_state_to_terminated(ListProcess* list) {
+	int state;
+	state=count_is_not_state(list) + count_is_ready(list) + count_is_running(list) + count_is_waiting(list) + count_is_burst(list);
+	if (state > 0) {
+		return 1;
+	}
+	return 0;
+}

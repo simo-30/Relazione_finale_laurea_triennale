@@ -17,7 +17,6 @@ void rr_scheduler(SettingType* setting, const char* result);
 void print_CoreType_list(CoreType* core, int dim);
 void insert_into_cores(CoreType* core, int pid, int dim);
 void scaling_core_list(CoreType* core, int dim, int val);
-int count_state_to_terminated(ListProcess* list); //conta il numero dei processi che non sono terminated o in burst
 void rr_to_ready_proc(ListProcess* list, int timing);
 void rr_to_running_proc(ListProcess* list, int* proc, int dim_proc, CoreType* core, int dim_core); 
 void rr_to_waiting_proc(ListProcess* list, int* proc, int dim);

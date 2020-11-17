@@ -32,7 +32,6 @@ void rr_scheduler(SettingType* setting, const char* result) {
 		rr_to_waiting_proc(list, wait_proc, setting->pid);
 		rr_run_proc(list, wait_proc, setting->pid, core_list, setting->core);
 		rr_new_burst_proc(list, timing, setting->max_time, setting->avg_time);
-		print_listProcess(list);
 		update_statistics(list, stat);
 	}
 	while (count_state_to_terminated(list) != 0) {
@@ -43,7 +42,6 @@ void rr_scheduler(SettingType* setting, const char* result) {
 		rr_to_waiting_proc(list, wait_proc, setting->pid);
 		rr_run_proc_to_terminated(list, wait_proc, setting->pid, core_list, setting->core);
 		timing+=1;
-		print_listProcess(list);
 		update_statistics(list, stat);
 	}
 	write_on_file(stat, result);
@@ -105,15 +103,6 @@ void scaling_core_list(CoreType* core, int dim, int val) {
 		}
 	}
 	return;
-}
-
-int count_state_to_terminated(ListProcess* list) {
-	int state;
-	state=count_is_not_state(list) + count_is_ready(list) + count_is_running(list) + count_is_waiting(list) + count_is_burst(list);
-	if (state > 0) {
-		return 1;
-	}
-	return 0;
 }
 
 void rr_to_ready_proc(ListProcess* list, int timing) {

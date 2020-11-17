@@ -169,15 +169,6 @@ void fcfs_new_burst_proc(ListProcess* list, int min_time, int max_time, int avg_
 	return;
 }
 
-int count_state_to_terminated(ListProcess* list) {
-	int state;
-	state=count_is_not_state(list) + count_is_ready(list) + count_is_running(list) + count_is_waiting(list);
-	if (state > 0) {
-		return 1;
-	}
-	return 0;
-}
-
 void fcfs_to_terminated_proc(ListProcess* list, int* proc, int dim) {
 	int i;
 	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
