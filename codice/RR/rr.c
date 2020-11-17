@@ -21,10 +21,15 @@ void rr_scheduler(SettingType* setting, const char* result) {
 	ListProcess* list=generate_listProcess_from_setting(setting);
 	StatisticsType* stat=new_statisticsType(setting->pid, setting->core);
 	int timing;
-	int* pid_proc=new_array_negative_inizialized(setting->pid);
+	int* wait_proc=new_array_negative_inizialized(setting->pid);
 	CoreType* core_list=new_CoreType_list(setting->core, QUANTUM); 
 	for (timing=0; timing<=setting->max_time; timing++) {
 		/**Implementazione vera e propria della politica**/
+		rr_to_ready_proc(list, timing);
+		if (count_is_running(list) < setting->core) {
+			rr_to_running_proc(list, wait_proc, setting->pid, core_list, setting->core);
+		}
+		print_listProcess(list);
 	}
 	//while (count_state_to_terminated(list) != 0) {
 	//}
@@ -96,4 +101,56 @@ int count_state_to_terminated(ListProcess* list) {
 		return 1;
 	}
 	return 0;
+}
+
+void rr_to_ready_proc(ListProcess* list, int timing) {
+	/* scorro la lista e se trovo un processo il cui tempo di arrivo è uguale a timing ed è in NOT_STATE o in BURST lo metto in READY */
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		if (aux->info->time_arrive == timing) {
+			if (is_burst(aux->info)==1 || is_not_state(aux->info)==1) {
+				to_ready(aux->info);
+			}
+		}
+		aux=aux->next;
+	}
+	return;
+}
+
+void rr_to_running_proc(ListProcess* list, int* proc, int dim_proc, CoreType* core, int dim_core) {
+	int i;
+	for (i=0; i<dim_proc; i++) {
+		if (proc[i]==-1) {
+			break;
+		}
+		ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+		aux=list->first;
+		int j;
+		for (j=0; j<list->size; j++) {
+			if (is_waiting(aux->info)==1 && proc[i]==aux->info->pid) {
+				to_run(aux->info);
+				i-=1;
+				insert_into_cores(core, aux->info->pid, dim_core);
+				scaling_array(proc, dim_proc, aux->info->pid);
+				if (count_is_running(list) >= dim_core) {
+					return;
+				}
+			}
+			aux=aux->next;
+		}
+	}
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		if (is_ready(aux->info)==1) {
+			to_run(aux->info);
+			insert_into_cores(core, aux->info->pid, dim_core);
+			if (count_is_running(list) >= dim_core) {
+				return;
+			}
+		}
+		aux=aux->next;
+	}
 }
