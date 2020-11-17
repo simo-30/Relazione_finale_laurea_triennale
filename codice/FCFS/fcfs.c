@@ -45,6 +45,7 @@ void fcfs_scheduler(SettingType* setting, const char* result) {
 		fcfs_run_proc(list);
 		fcfs_to_terminated_proc(list, pid_proc, setting->pid);
 		update_statistics(list, stat);
+		timing+=1;
 	}
 	write_on_file(stat, result);
 	return;

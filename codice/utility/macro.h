@@ -41,6 +41,18 @@
 #define RES_FCFS_10 "../file/result/result_fcfs_set10.csv"
 #define RES_FCFS_11 "../file/result/result_fcfs_set11.csv"
 #define RES_FCFS_12 "../file/result/result_fcfs_set12.csv"
+#define RES_RR_1 "../file/result/result_rr_set1.csv"
+#define RES_RR_2 "../file/result/result_rr_set2.csv"
+#define RES_RR_3 "../file/result/result_rr_set3.csv"
+#define RES_RR_4 "../file/result/result_rr_set4.csv"
+#define RES_RR_5 "../file/result/result_rr_set5.csv"
+#define RES_RR_6 "../file/result/result_rr_set6.csv"
+#define RES_RR_7 "../file/result/result_rr_set7.csv"
+#define RES_RR_8 "../file/result/result_rr_set8.csv"
+#define RES_RR_9 "../file/result/result_rr_set9.csv"
+#define RES_RR_10 "../file/result/result_rr_set10.csv"
+#define RES_RR_11 "../file/result/result_rr_set11.csv"
+#define RES_RR_12 "../file/result/result_rr_set12.csv"
 
 /* macro numeriche */
 #define NUM_CICLI 20

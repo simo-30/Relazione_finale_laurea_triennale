@@ -20,3 +20,7 @@ void scaling_core_list(CoreType* core, int dim, int val);
 int count_state_to_terminated(ListProcess* list); //conta il numero dei processi che non sono terminated o in burst
 void rr_to_ready_proc(ListProcess* list, int timing);
 void rr_to_running_proc(ListProcess* list, int* proc, int dim_proc, CoreType* core, int dim_core); 
+void rr_to_waiting_proc(ListProcess* list, int* proc, int dim);
+void rr_run_proc(ListProcess* list, int* proc, int dim_proc, CoreType* core, int dim_core);
+void rr_new_burst_proc(ListProcess* list, int min_time, int max_time, int avg_time);
+void rr_run_proc_to_terminated(ListProcess* list, int* proc, int dim_proc, CoreType* core, int dim_core);

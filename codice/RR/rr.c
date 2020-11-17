@@ -29,11 +29,24 @@ void rr_scheduler(SettingType* setting, const char* result) {
 		if (count_is_running(list) < setting->core) {
 			rr_to_running_proc(list, wait_proc, setting->pid, core_list, setting->core);
 		}
+		rr_to_waiting_proc(list, wait_proc, setting->pid);
+		rr_run_proc(list, wait_proc, setting->pid, core_list, setting->core);
+		rr_new_burst_proc(list, timing, setting->max_time, setting->avg_time);
 		print_listProcess(list);
+		update_statistics(list, stat);
 	}
-	//while (count_state_to_terminated(list) != 0) {
-	//}
-	//write_on_file(stat, result);
+	while (count_state_to_terminated(list) != 0) {
+		rr_to_ready_proc(list, timing);
+		if (count_is_running(list) < setting->core) {
+			rr_to_running_proc(list, wait_proc, setting->pid, core_list, setting->core);
+		}
+		rr_to_waiting_proc(list, wait_proc, setting->pid);
+		rr_run_proc_to_terminated(list, wait_proc, setting->pid, core_list, setting->core);
+		timing+=1;
+		print_listProcess(list);
+		update_statistics(list, stat);
+	}
+	write_on_file(stat, result);
 	return;
 }
 
@@ -153,4 +166,92 @@ void rr_to_running_proc(ListProcess* list, int* proc, int dim_proc, CoreType* co
 		}
 		aux=aux->next;
 	}
+	return;
+}
+
+void rr_to_waiting_proc(ListProcess* list, int* proc, int dim) {
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		if (is_ready(aux->info)==1) {
+			to_wait(aux->info);
+			insert_first_possible(proc, dim, aux->info->pid);
+		}
+		aux=aux->next;
+	}
+	return;
+}
+
+void rr_run_proc(ListProcess* list, int* proc, int dim_proc, CoreType* core, int dim_core) {
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		if (is_running(aux->info)==1) {
+			aux->info->duration-=1;
+			if (aux->info->duration==0) {
+				to_burst(aux->info);
+				scaling_core_list(core, dim_core, aux->info->pid);
+			}
+			else {
+				int j;
+				for (j=0; j<dim_core; j++) {
+					if (aux->info->pid == core[j].pid) {
+						core[j].core_time-=1;
+						if (core[j].core_time==0) {
+							to_wait(aux->info);
+							insert_first_possible(proc, dim_proc, aux->info->pid);
+							scaling_core_list(core, dim_core, aux->info->pid);
+						}
+					}
+				}
+			}
+		}
+		aux=aux->next;
+	}
+	return;
+}
+
+void rr_new_burst_proc(ListProcess* list, int min_time, int max_time, int avg_time) {
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		if (is_burst(aux->info) == 1) {
+			new_burst_for_process(aux->info, min_time, max_time, avg_time);
+		}
+		aux=aux->next;
+	}
+	return;
+}
+
+void rr_run_proc_to_terminated(ListProcess* list, int* proc, int dim_proc, CoreType* core, int dim_core) {
+	int i;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		if (is_running(aux->info)==1) {
+			aux->info->duration-=1;
+			if (aux->info->duration==0) {
+				to_terminated(aux->info);
+				scaling_core_list(core, dim_core, aux->info->pid);
+			}
+			else {
+				int j;
+				for (j=0; j<dim_core; j++) {
+					if (aux->info->pid == core[j].pid) {
+						core[j].core_time-=1;
+						if (core[j].core_time==0) {
+							to_wait(aux->info);
+							insert_first_possible(proc, dim_proc, aux->info->pid);
+							scaling_core_list(core, dim_core, aux->info->pid);
+						}
+					}
+				}
+			}
+		}
+		aux=aux->next;
+	}
+	return;
 }
