@@ -29,6 +29,13 @@ int main() {
 		fcfs_running(SET_10, RES_FCFS_10);
 		fcfs_running(SET_11, RES_FCFS_11);
 		fcfs_running(SET_12, RES_FCFS_12);
+		fcfs_running(SET_13, RES_FCFS_13);
+		fcfs_running(SET_14, RES_FCFS_14);
+		fcfs_running(SET_15, RES_FCFS_15);
+		fcfs_running(SET_16, RES_FCFS_16);
+		fcfs_running(SET_17, RES_FCFS_17);
+		fcfs_running(SET_18, RES_FCFS_18);
+		
 		rr_running(SET_1, RES_RR_1);
 		rr_running(SET_2, RES_RR_2);
 		rr_running(SET_3, RES_RR_3);
@@ -41,6 +48,13 @@ int main() {
 		rr_running(SET_10, RES_RR_10);
 		rr_running(SET_11, RES_RR_11);
 		rr_running(SET_12, RES_RR_12);
+		rr_running(SET_13, RES_RR_13);
+		rr_running(SET_14, RES_RR_14);
+		rr_running(SET_15, RES_RR_15);
+		rr_running(SET_16, RES_RR_16);
+		rr_running(SET_17, RES_RR_17);
+		rr_running(SET_18, RES_RR_18);
+		
 		sjf_running(SET_1, RES_SJF_1);
 		sjf_running(SET_2, RES_SJF_2);
 		sjf_running(SET_3, RES_SJF_3);
@@ -53,6 +67,12 @@ int main() {
 		sjf_running(SET_10, RES_SJF_10);
 		sjf_running(SET_11, RES_SJF_11);
 		sjf_running(SET_12, RES_SJF_12);
+		sjf_running(SET_13, RES_SJF_13);
+		sjf_running(SET_14, RES_SJF_14);
+		sjf_running(SET_15, RES_SJF_15);
+		sjf_running(SET_16, RES_SJF_16);
+		sjf_running(SET_17, RES_SJF_17);
+		sjf_running(SET_18, RES_SJF_18);
 		printf(".");
 	}
 	printf("\nFINE\n");
