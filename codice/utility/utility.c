@@ -99,3 +99,21 @@ int is_in_array(int* arr, int dim, int val) {
 	}
 	return 0;
 }
+
+void insert_ordering_crescent(int* arr, int dim, int val) {
+	int i, j=0;
+	int aux[dim];
+	for (i=0; i<dim; i++) {
+		if (val < arr[i]) {
+			aux[i]=val;
+		}
+		else {
+			aux[i]=arr[j];
+			j+=1;
+		}
+	}
+	for (i=0; i<dim; i++) {
+		arr[i]=aux[i];
+	}
+	return;
+}

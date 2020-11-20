@@ -26,5 +26,9 @@ int main() {
 	for (i=0; i<10; i++) {
 		printf("%d\n", neg[i]);
 	}
+	insert_ordering_crescent(neg, 10, 3);
+	insert_ordering_crescent(neg, 10, 16);
+	printf("prova\n");
+	print_array_int(neg, 10);
 	return 0;
 }

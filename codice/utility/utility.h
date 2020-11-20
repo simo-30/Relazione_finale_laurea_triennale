@@ -18,3 +18,4 @@ void insert_first_possible(int* arr, int dim_arr, int val); //inserisce nell'arr
 void scaling_array(int* arr, int dim, int val); //scala tutti i valori dell'array di una posizione avanti partendo dalla posizione in cui si trova val 
 void print_array_int(int* arr, int dim);
 int is_in_array(int* arr, int dim, int val); //torna 1 se val è nell'array, 0 altrimenti
+void insert_ordering_crescent(int* arr, int dim, int val);

@@ -16,7 +16,6 @@ int main() {
 	int i;
 	printf("FCFS & RR in esecuzione\n");
 	for (i=0; i<NUM_CICLI; i++) {
-		printf(".");
 		fcfs_running(SET_1, RES_FCFS_1);
 		fcfs_running(SET_2, RES_FCFS_2);
 		fcfs_running(SET_3, RES_FCFS_3);
@@ -41,6 +40,7 @@ int main() {
 		rr_running(SET_10, RES_RR_10);
 		rr_running(SET_11, RES_RR_11);
 		rr_running(SET_12, RES_RR_12);
+		printf(".");
 	}
 	printf("\nFINE\n");
 	return 0;
