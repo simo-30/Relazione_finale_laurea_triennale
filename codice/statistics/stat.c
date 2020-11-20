@@ -43,13 +43,14 @@ void print_statistics(StatisticsType* stat) {
 	printf("Statistiche della politica di scheduling\n");
 	printf("Numero di core: %d\n", stat->num_core);
 	printf("Numero di processi: %d\n", stat->num_proc);
-	printf("Tempo medio di attesa: %d\n", stat->medium_wait_time);
-	printf("Tempo medio di completamento: %d\n", stat->medium_complete_time);
+	printf("Tempo medio di attesa: %.2f\n", stat->medium_wait_time);
+	printf("Tempo medio di completamento: %.2f\n", stat->medium_complete_time);
 	return;
 }
 
 void update_medium_waiting_time(StatisticsType* stat) {
-	int tot_waiting, i;
+	float tot_waiting; 
+	int i;
 	tot_waiting=0;
 	for (i=0; i<stat->num_proc; i++) {
 		tot_waiting+=stat->waiting_time[i];
@@ -59,7 +60,8 @@ void update_medium_waiting_time(StatisticsType* stat) {
 }
 
 void update_medium_completing_time(StatisticsType* stat) {
-	int tot_compl, i;
+	float tot_compl;
+	int i;
 	tot_compl=0;
 	for (i=0; i<stat->num_proc; i++) {
 		tot_compl+=stat->completing_time[i];
@@ -72,11 +74,12 @@ void write_on_file(StatisticsType* stat, const char* filename) {
 	//i dati saranno salvati in un file csv, nel seguente ordine:
 	//numero di core, numero di processi, tempo medio di attesa, tempo medio di completamento
 	FILE* fd=fopen(filename, "a");
+	fprintf(fd, "numero di core,numero di processi,tempo medio di attesa,tempo medio di completamento\n");
 	if (fd == NULL) {
 		printf("Errore nell'apertura del file %s\n", filename);
 		return;
 	}
-	fprintf(fd, "%d,%d,%d,%d\n", stat->num_core, stat->num_proc, stat->medium_wait_time, stat->medium_complete_time);
+	fprintf(fd, "%d,%d,%.2f,%.2f\n", stat->num_core, stat->num_proc, stat->medium_wait_time, stat->medium_complete_time);
 	fclose(fd);
 	return;
 }
