@@ -74,7 +74,6 @@ void write_on_file(StatisticsType* stat, const char* filename) {
 	//i dati saranno salvati in un file csv, nel seguente ordine:
 	//numero di core, numero di processi, tempo medio di attesa, tempo medio di completamento
 	FILE* fd=fopen(filename, "a");
-	fprintf(fd, "numero di core,numero di processi,tempo medio di attesa,tempo medio di completamento\n");
 	if (fd == NULL) {
 		printf("Errore nell'apertura del file %s\n", filename);
 		return;

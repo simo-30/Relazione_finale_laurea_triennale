@@ -6,6 +6,7 @@
 #include STAT_H
 #include FCFS_H
 #include RR_H
+#include SJF_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +15,7 @@
 
 int main() {
 	int i;
-	printf("FCFS & RR in esecuzione\n");
+	printf("FCFS, RR & SJF in esecuzione\n");
 	for (i=0; i<NUM_CICLI; i++) {
 		fcfs_running(SET_1, RES_FCFS_1);
 		fcfs_running(SET_2, RES_FCFS_2);
@@ -40,6 +41,18 @@ int main() {
 		rr_running(SET_10, RES_RR_10);
 		rr_running(SET_11, RES_RR_11);
 		rr_running(SET_12, RES_RR_12);
+		sjf_running(SET_1, RES_SJF_1);
+		sjf_running(SET_2, RES_SJF_2);
+		sjf_running(SET_3, RES_SJF_3);
+		sjf_running(SET_4, RES_SJF_4);
+		sjf_running(SET_5, RES_SJF_5);
+		sjf_running(SET_6, RES_SJF_6);
+		sjf_running(SET_7, RES_SJF_7);
+		sjf_running(SET_8, RES_SJF_8);
+		sjf_running(SET_9, RES_SJF_9);
+		sjf_running(SET_10, RES_SJF_10);
+		sjf_running(SET_11, RES_SJF_11);
+		sjf_running(SET_12, RES_SJF_12);
 		printf(".");
 	}
 	printf("\nFINE\n");

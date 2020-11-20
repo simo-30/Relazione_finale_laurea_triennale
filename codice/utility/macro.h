@@ -11,6 +11,7 @@
 /* macro per le varie politiche di scheduling */
 #define FCFS_H "../FCFS/fcfs.h"
 #define RR_H "../RR/rr.h"
+#define SJF_H "../SJF/sjf.h"
 
 /* macro per i file di setting */
 #define SET_TEST "../setting/setting.txt"
@@ -53,6 +54,18 @@
 #define RES_RR_10 "../file/result/result_rr_set10.csv"
 #define RES_RR_11 "../file/result/result_rr_set11.csv"
 #define RES_RR_12 "../file/result/result_rr_set12.csv"
+#define RES_SJF_1 "../file/result/result_sjf_set1.csv"
+#define RES_SJF_2 "../file/result/result_sjf_set2.csv"
+#define RES_SJF_3 "../file/result/result_sjf_set3.csv"
+#define RES_SJF_4 "../file/result/result_sjf_set4.csv"
+#define RES_SJF_5 "../file/result/result_sjf_set5.csv"
+#define RES_SJF_6 "../file/result/result_sjf_set6.csv"
+#define RES_SJF_7 "../file/result/result_sjf_set7.csv"
+#define RES_SJF_8 "../file/result/result_sjf_set8.csv"
+#define RES_SJF_9 "../file/result/result_sjf_set9.csv"
+#define RES_SJF_10 "../file/result/result_sjf_set10.csv"
+#define RES_SJF_11 "../file/result/result_sjf_set11.csv"
+#define RES_SJF_12 "../file/result/result_sjf_set12.csv"
 
 /* macro numeriche */
 #define NUM_CICLI 20
