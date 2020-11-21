@@ -94,6 +94,25 @@
 #define RES_SJF_17 "../file/result/result_sjf_set17.csv"
 #define RES_SJF_18 "../file/result/result_sjf_set18.csv"
 
+#define RES_SRJF_1 "../file/result/result_srjf_set1.csv"
+#define RES_SRJF_2 "../file/result/result_srjf_set2.csv"
+#define RES_SRJF_3 "../file/result/result_srjf_set3.csv"
+#define RES_SRJF_4 "../file/result/result_srjf_set4.csv"
+#define RES_SRJF_5 "../file/result/result_srjf_set5.csv"
+#define RES_SRJF_6 "../file/result/result_srjf_set6.csv"
+#define RES_SRJF_7 "../file/result/result_srjf_set7.csv"
+#define RES_SRJF_8 "../file/result/result_srjf_set8.csv"
+#define RES_SRJF_9 "../file/result/result_srjf_set9.csv"
+#define RES_SRJF_10 "../file/result/result_srjf_set10.csv"
+#define RES_SRJF_11 "../file/result/result_srjf_set11.csv"
+#define RES_SRJF_12 "../file/result/result_srjf_set12.csv"
+#define RES_SRJF_13 "../file/result/result_srjf_set13.csv"
+#define RES_SRJF_14 "../file/result/result_srjf_set14.csv"
+#define RES_SRJF_15 "../file/result/result_srjf_set15.csv"
+#define RES_SRJF_16 "../file/result/result_srjf_set16.csv"
+#define RES_SRJF_17 "../file/result/result_srjf_set17.csv"
+#define RES_SRJF_18 "../file/result/result_srjf_set18.csv"
+
 /* macro numeriche */
 #define NUM_CICLI 10
 #define QUANTUM 5

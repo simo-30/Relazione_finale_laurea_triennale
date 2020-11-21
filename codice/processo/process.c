@@ -20,7 +20,7 @@ void print_process(ProcessType* process) {
 	printf("**** process pid	%d ****\n", process->pid);
 	printf("     time arriving	%d\n", process->time_arrive);
 	printf("     duration		%d\n", process->duration);
-	printf("     resource		%d\n", process->resource);
+	printf("     resource		%s\n", resource_to_string(process));
 	printf("     state	        %s\n", state_to_string(process));
 	printf("******************************\n\n");
 	return;
@@ -40,7 +40,7 @@ void append_process_onFile(ProcessType* process, const char* nameFile) {
 	fprintf(fd, "**** process pid	%d ****\n", process->pid);
 	fprintf(fd, "     time arriving	%d\n", process->time_arrive);
 	fprintf(fd, "     duration		%d\n", process->duration);
-	fprintf(fd, "     resource		%d\n", process->resource);
+	fprintf(fd, "     resource		%s\n", resource_to_string(process));
 	fprintf(fd, "     state	        %s\n", state_to_string(process));
 	fprintf(fd, "******************************\n");
 	fclose(fd);
@@ -137,4 +137,13 @@ void new_burst_for_process(ProcessType* proc, int min_time, int max_time, int av
 void to_terminated(ProcessType* proc) {
 	proc->state=TERMINATED;
 	return;
+}
+
+char* resource_to_string(ProcessType* proc) {
+	switch (proc->resource) {
+		case 0:
+			return "CPU";
+		case 1:
+			return "I/O";
+		}
 }

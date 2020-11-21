@@ -7,6 +7,7 @@
 #include FCFS_H
 #include RR_H
 #include SJF_H
+#include SRJF_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -73,6 +74,25 @@ int main() {
 		sjf_running(SET_16, RES_SJF_16);
 		sjf_running(SET_17, RES_SJF_17);
 		sjf_running(SET_18, RES_SJF_18);
+		
+		srjf_running(SET_1, RES_SRJF_1);
+		srjf_running(SET_2, RES_SRJF_2);
+		srjf_running(SET_3, RES_SRJF_3);
+		srjf_running(SET_4, RES_SRJF_4);
+		srjf_running(SET_5, RES_SRJF_5);
+		srjf_running(SET_6, RES_SRJF_6);
+		srjf_running(SET_7, RES_SRJF_7);
+		srjf_running(SET_8, RES_SRJF_8);
+		srjf_running(SET_9, RES_SRJF_9);
+		srjf_running(SET_10, RES_SRJF_10);
+		srjf_running(SET_11, RES_SRJF_11);
+		srjf_running(SET_12, RES_SRJF_12);
+		srjf_running(SET_13, RES_SRJF_13);
+		srjf_running(SET_14, RES_SRJF_14);
+		srjf_running(SET_15, RES_SRJF_15);
+		srjf_running(SET_16, RES_SRJF_16);
+		srjf_running(SET_17, RES_SRJF_17);
+		srjf_running(SET_18, RES_SRJF_18);
 		printf(".");
 	}
 	printf("\nFINE\n");
