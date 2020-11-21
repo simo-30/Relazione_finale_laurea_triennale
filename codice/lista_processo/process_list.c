@@ -246,3 +246,27 @@ int count_state_to_terminated(ListProcess* list) {
 	}
 	return 0;
 }
+
+int count_resource_CPU(ListProcess* list) {
+	int i, tot;
+	tot=0;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		tot+=resource_is_CPU(aux->info);
+		aux=aux->next;
+	}
+	return tot;
+}
+
+int count_resource_IO(ListProcess* list) {
+	int i, tot;
+	tot=0;
+	ProcessItem* aux=(ProcessItem*)malloc(sizeof(ProcessItem));
+	aux=list->first;
+	for (i=0; i<list->size; i++) {
+		tot+=resource_is_IO(aux->info);
+		aux=aux->next;
+	}
+	return tot;
+}

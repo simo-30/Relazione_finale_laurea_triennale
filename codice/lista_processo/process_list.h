@@ -37,4 +37,5 @@ void adding_completing_time_in_stat(ListProcess* list, StatisticsType* stat);
 void write_listProcess_on_file(ListProcess* list, const char* filename);
 void update_statistics(ListProcess* list, StatisticsType* stat);
 int count_state_to_terminated(ListProcess* list);
-
+int count_resource_CPU(ListProcess* list);
+int count_resource_IO(ListProcess* list);

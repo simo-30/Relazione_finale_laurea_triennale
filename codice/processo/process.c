@@ -147,3 +147,17 @@ char* resource_to_string(ProcessType* proc) {
 			return "I/O";
 		}
 }
+
+int resource_is_CPU(ProcessType* proc) {
+	if (proc->resource == CPU) {
+		return 1;
+	}
+	return 0;
+}
+
+int resource_is_IO(ProcessType* proc) {
+	if (proc->resource == IO) {
+		return 1;
+	}
+	return 0;
+}

@@ -39,3 +39,5 @@ void to_burst(ProcessType* proc);
 void new_burst_for_process(ProcessType* proc, int min_time, int max_time, int avg_time);
 void to_terminated(ProcessType* proc);
 char* resource_to_string(ProcessType* proc);
+int resource_is_CPU(ProcessType* proc); //torna 1 se la risorsa richiesta è CPU, 0 altrimenti
+int resource_is_IO(ProcessType* proc); //torna 1 se la risorsa richiesta è IO, 0 altrimenti
