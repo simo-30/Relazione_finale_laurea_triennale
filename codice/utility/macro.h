@@ -12,6 +12,7 @@
 #define FCFS_H "../FCFS/fcfs.h"
 #define RR_H "../RR/rr.h"
 #define SJF_H "../SJF/sjf.h"
+#define SRJF_H "../SRJF/srjf.h"
 
 /* macro per i file di setting */
 #define SET_TEST "../setting/setting.txt"
