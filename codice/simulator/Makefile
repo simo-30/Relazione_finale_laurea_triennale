@@ -8,6 +8,7 @@ all:
 
 run:
 	./$(exe)
+	rm ../file/result/*.txt
 
 clean:
 	rm $(exe)

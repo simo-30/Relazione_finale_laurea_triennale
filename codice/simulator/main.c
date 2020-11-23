@@ -41,6 +41,15 @@ int main() {
 		float perc = ((i+1)*100)/NUM_CICLI; 
 		printf("%.2f %\n", perc);
 	}
+	printf("Calcolo delle statistiche finali\n");
+	for (i=0; i<NUM_SET; i++) {
+		calculate_final_result(fcfs_res[i], FCFS_FINAL_RES);
+		calculate_final_result(rr_res[i], RR_FINAL_RES);
+		calculate_final_result(sjf_res[i], SJF_FINAL_RES);
+		calculate_final_result(srjf_res[i], SRJF_FINAL_RES);
+		float perc = ((i+1)*100)/NUM_SET; 
+		printf("%.2f %\n", perc);
+	}
 	printf("\nFINE\n");
 	return 0;
 }

@@ -19,3 +19,4 @@ void print_statistics(StatisticsType* stat);
 void update_medium_waiting_time(StatisticsType* stat); 
 void update_medium_completing_time(StatisticsType* stat);
 void write_on_file(StatisticsType* stat, const char* filename);
+void calculate_final_result(const char* parz_res, const char* final_res); 

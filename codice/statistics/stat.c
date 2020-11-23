@@ -82,3 +82,37 @@ void write_on_file(StatisticsType* stat, const char* filename) {
 	fclose(fd);
 	return;
 }
+
+void calculate_final_result(const char* parz_res, const char* final_res) {
+	FILE* fd=fopen(parz_res, "r");
+	if (fd==NULL) {
+		printf("Errore nell'apertura del file %s per calcolare le statistiche finali\n", parz_res);
+		return;
+	}
+	char* buffer=NULL;
+	size_t line_len=0;
+	if (getline(&buffer, &line_len, fd) <= 0) {
+		printf("Errore di lettura dal file %s\n", parz_res);
+		return NULL;
+	}
+	int righe=0, proc, core;
+	float med_wait, med_compl;
+	med_wait=0;
+	med_compl=0;
+	while (getline(&buffer, &line_len, fd) != -1) {
+		float aux_wait=0, aux_compl=0;
+		sscanf(buffer,"%d,%d,%f,%f", &core, &proc, &aux_wait, &aux_compl);
+		righe+=1;
+		med_wait+=aux_wait;
+		med_compl+=aux_compl;
+	}
+	fclose(fd);
+	FILE* res=fopen(final_res, "a");
+	if (res==NULL) {
+		printf("Errore nell'apertura del file %s\n", final_res);
+		return;
+	}
+	fprintf(res, "%d,%d,%.2f,%.2f\n", core, proc, (med_wait/righe), (med_compl/righe));
+	fclose(res);
+	return;
+}
