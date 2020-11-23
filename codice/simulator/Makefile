@@ -8,7 +8,6 @@ all:
 
 run:
 	./$(exe)
-	./$(exe)
 
 clean:
 	rm $(exe)

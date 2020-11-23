@@ -116,3 +116,4 @@
 /* macro numeriche */
 #define NUM_CICLI 10
 #define QUANTUM 5
+#define NUM_SET 18
