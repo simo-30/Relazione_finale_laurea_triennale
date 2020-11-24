@@ -34,6 +34,12 @@
 #define SET_16 "../file/setting/set16.txt"
 #define SET_17 "../file/setting/set17.txt"
 #define SET_18 "../file/setting/set18.txt"
+#define SET_19 "../file/setting/set19.txt"
+#define SET_20 "../file/setting/set20.txt"
+#define SET_21 "../file/setting/set21.txt"
+#define SET_22 "../file/setting/set22.txt"
+#define SET_23 "../file/setting/set23.txt"
+#define SET_24 "../file/setting/set24.txt"
 
 /* macro per i file con i risultati */
 #define RESULT_TEST "../file/result/result_test.csv"
@@ -56,6 +62,12 @@
 #define RES_FCFS_16 "../file/result/result_fcfs_set16.txt"
 #define RES_FCFS_17 "../file/result/result_fcfs_set17.txt"
 #define RES_FCFS_18 "../file/result/result_fcfs_set18.txt"
+#define RES_FCFS_19 "../file/result/result_fcfs_set19.txt"
+#define RES_FCFS_20 "../file/result/result_fcfs_set20.txt"
+#define RES_FCFS_21 "../file/result/result_fcfs_set21.txt"
+#define RES_FCFS_22 "../file/result/result_fcfs_set22.txt"
+#define RES_FCFS_23 "../file/result/result_fcfs_set23.txt"
+#define RES_FCFS_24 "../file/result/result_fcfs_set24.txt"
 #define FCFS_FINAL_RES "../file/result/result_fcfs.csv"
 
 #define RES_RR_1 "../file/result/result_rr_set1.txt"
@@ -76,6 +88,12 @@
 #define RES_RR_16 "../file/result/result_rr_set16.txt"
 #define RES_RR_17 "../file/result/result_rr_set17.txt"
 #define RES_RR_18 "../file/result/result_rr_set18.txt"
+#define RES_RR_19 "../file/result/result_rr_set19.txt"
+#define RES_RR_20 "../file/result/result_rr_set20.txt"
+#define RES_RR_21 "../file/result/result_rr_set21.txt"
+#define RES_RR_22 "../file/result/result_rr_set22.txt"
+#define RES_RR_23 "../file/result/result_rr_set23.txt"
+#define RES_RR_24 "../file/result/result_rr_set24.txt"
 #define RR_FINAL_RES "../file/result/result_rr.csv"
 
 #define RES_SJF_1 "../file/result/result_sjf_set1.txt"
@@ -96,6 +114,12 @@
 #define RES_SJF_16 "../file/result/result_sjf_set16.txt"
 #define RES_SJF_17 "../file/result/result_sjf_set17.txt"
 #define RES_SJF_18 "../file/result/result_sjf_set18.txt"
+#define RES_SJF_19 "../file/result/result_sjf_set19.txt"
+#define RES_SJF_20 "../file/result/result_sjf_set20.txt"
+#define RES_SJF_21 "../file/result/result_sjf_set21.txt"
+#define RES_SJF_22 "../file/result/result_sjf_set22.txt"
+#define RES_SJF_23 "../file/result/result_sjf_set23.txt"
+#define RES_SJF_24 "../file/result/result_sjf_set24.txt"
 #define SJF_FINAL_RES "../file/result/result_sjf.csv" 
 
 #define RES_SRJF_1 "../file/result/result_srjf_set1.txt"
@@ -116,9 +140,15 @@
 #define RES_SRJF_16 "../file/result/result_srjf_set16.txt"
 #define RES_SRJF_17 "../file/result/result_srjf_set17.txt"
 #define RES_SRJF_18 "../file/result/result_srjf_set18.txt"
+#define RES_SRJF_19 "../file/result/result_srjf_set19.txt"
+#define RES_SRJF_20 "../file/result/result_srjf_set20.txt"
+#define RES_SRJF_21 "../file/result/result_srjf_set21.txt"
+#define RES_SRJF_22 "../file/result/result_srjf_set22.txt"
+#define RES_SRJF_23 "../file/result/result_srjf_set23.txt"
+#define RES_SRJF_24 "../file/result/result_srjf_set24.txt"
 #define SRJF_FINAL_RES "../file/result/result_srjf.csv"
 
 /* macro numeriche */
 #define NUM_CICLI 10
 #define QUANTUM 5
-#define NUM_SET 18
+#define NUM_SET 24
