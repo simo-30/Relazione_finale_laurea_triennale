@@ -36,9 +36,9 @@
 			pdftitle={A sample Bachelor's thesis for Sapienza Università di Roma},
 			pdfauthor={FirstName LastName},
 			pdfkeywords={thesis, sapienza, roma, university}
- }
+}
 
-\title{Scheduler dei processi di un sistema operativo, varie politiche, FCFS, RR, SJF, SRJF, MLFQ}
+\title{Scheduler dei processi di un sistema operativo, confronto ed analisi di varie politiche}
 \author{Simone Trenta}
 \IDnumber{1724141}
 \course[]{Ingegneria informatica ed automatica}
@@ -59,29 +59,40 @@
 \maketitle
 
 \begin{abstract}
-Tramite un progetto di simulazione di uno scheduler di un sistema operativo, si analizzano le varie politiche di scheduling fra le più comuni.
-Fra queste troviamo first came first served (FCFS), round robin (RR), shortest job first (SJF), shortest remaining job first (SRJF), multilevel feedback queue (MLFQ).
-I risultati ottenuti tramite la simulazione verranno poi analizzati e confrontati, in particolare si metterà in risalto come la differenza fra le politiche di scheduling, determina vari tempi di attesa, nonostante gli stessi dati di input.
-Tramite i sopra citati confronti si potrà poi determinare quale politica sia meglio per ogni calcolatore si voglia progettare, sapendo il lavoro che esso dovrà compiere.
+Tramite un progetto di simulazione di uno scheduler di un sistema operativo, si analizzano le varie politiche di scheduling fra le più comuni, ossia first came first served (FCFS), round robin (RR), shortest job first (SJF) e shortest remaining job first (SRJF).
 \end{abstract}
 
 \tableofcontents
 
 \mainmatter
 \chapter{Introduzione}
-\lettrine[lines=2, findent=3pt, nindent=0pt]{I}{}n the frame of astronomical spectroscopy...
+\lettrine[lines=2, findent=3pt, nindent=0pt]{I}{}n un sistema operativo la gestione delle richieste di risorse da parte dei processi è demandata allo scheduler.
+Questa funzione di un sistema operativo è pressoché essenziale, senza la quale le risorse disponibili non potrebbero essere riservate e utilizzate in modo efficiente.
 
 \bigskip
-In \hyperref[chap:1]{Chapter~\ref*{chap:1}} we  briefly present...
+Nel \hyperref[chap:1]{Capitolo~\ref*{chap:1}}
 
 \bigskip
-In \hyperref[chap:2]{Chapter~\ref*{chap:2}} we summarize...
+Nel \hyperref[chap:2]{Capitolo~\ref*{chap:2}} 
 
-\chapter{Near-infrared multi-object spectroscopy}
+\bigskip
+Nel \hyperref[chap:3]{Capitolo~\ref{chap:3}} 
+
+\chapter{Lo scheduler in un sistema operativo}
 \label{chap:1} 
-\section{Scientific Case}
-\label{sec:caso}
-Over the last decades, innovative observational techniques have been developed to allow spectrographs observing...
+\section{La sua utilità}
+\label{sec:utilita}
+Un odierno sistema operativo è composto da molteplici parti, una di esse è lo scheduler dei processi.
+Questi ultimi sono parte costituente del sistema operativo, sono la parte esecutiva di esso.
+Per meglio capire, i processi richiedono delle risorse del calcolatore, che siano risorse unicamente della CPU oppure di risorse di I/O.
+Qualunque tipo di risorsa richiedano, spesso non è immediatamente disponibile, essendo limitate in un calcolatore.
+Per cui è necessaria la presenza di un elemento che permetta al dispositivo di gestire le proprie risorse, tale elemento è per l'appunto lo scheduler.
+Vedendo il problema da parte dei processi, problema che è la possibilità di usare una risorsa o meno, si crea la necessità di dare delle priorità per poterne usufruire.
+Andando quindi a dare origine a tali priorità si producono di conseguenza delle politiche per poterle mettere in atto.
+
+\section{prova}
+\label{sec:prova}
+sezione di prova
 
 \chapter{MOONS}
 \label{chap:2}
@@ -94,6 +105,7 @@ Property of the European Southern Observatory...
 The \textit{Multi-Object Optical and Near-infrared Spectrograph} is a future generation MOS instrument for the VLT. 
 
 \chapter{Conclusions}
+\label{chap:3}
 The grasping power of the mirror..
 
 \backmatter
