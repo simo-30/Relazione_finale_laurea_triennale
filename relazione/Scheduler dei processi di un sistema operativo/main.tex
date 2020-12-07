@@ -287,7 +287,69 @@ Quando timing sarà uguale max\_time, descritto nella \hyperref[sec:setting.h]{s
 Una volta che tutti i processi in lista sono TERMINATED il simulatore con politica FCFS termina.
 Ad ogni ciclo di clock, vengono sempre aggiornate le statistiche, per poi essere scritte in un file a terminazione della simulazione.
 
-\chapter{Casi d'uso}
+\section{Libreria rr.h}
+\label{sec:rr.h}
+La libreria \textit{rr.h} \hyperref[ref:rrh]{[\ref*{ref:rrh}]} implementa l'algoritmo round robin.
+Prima di procedere all'analisi degli stati dei processi, in questa libreria viene implementato un ulteriore tipo di dato come struttura, per gestire i core ed il loro tempo ancora disponibile se utilizzati.
+Tale struttura dati contiene:
+\begin{itemize}
+    \item un intero, indicante il pid del processo che sta utilizzando il core, chiamato \textit{pid};
+    \item un intero, indicante il tempo rimanente per l'uso del core, chiamato \textit{core\_time}.
+\end{itemize}
+Prendendo in considerazione lo schema a stati finiti della seguente immagine analizziamo gli stati dei processi.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{schema a stati finiti RR.JPG}
+  \caption{Schema a stati finiti RR}
+\end{figure}
+
+Ogni singolo processo appena creato si trova in stato NOT\_STATE e viene inserito nella lista dei processi.
+Il simulatore inizia il suo primo ciclo, ad ogni clock cerca nella lista dei processi quelli per cui time\_arrive è uguale a timing.
+Tali processi passano allo stato READY, essendo arrivati, e vengono inseriti in una coda per poterli gestire in base al loro arrivo.
+Se è disponibile la risorsa, quindi il numero di processi in RUNNING  minore del numero di core, si prende il primo processo dalla coda e passa in RUNNING, reinizializzando il quanto del core al tempo prestabilito.
+Si procede così fino a quando non terminano i core.
+Tutti i rimanenti processi nella coda passano nello stato di WAITING.
+Per tutti i processi in RUNNING viene ridotta di una unità la durata del job e del tempo rimanente del core.
+Quando il core\_time è uguale a zero il processo passa nella coda dei processi in WAITING, e viene liberato un core, una risorsa.
+Se invece la durata del job si riduce a zero il processo passa allo stato BURST.
+In questo stato, come nella precedente politica, vengono calcolati nuovi tempi di arrivo, nuova durata del job e nuova richiesta di risorsa per il processo, come spiegato a fine \hyperref[sec:process.h]{sezione~\ref*{sec:process.h}}.
+Quando il tempo trascorso nel primo ciclo del simulatore risulta maggiore di max\_time, si entra nell'ultimo ciclo, per cui il procedimento è come sopra descritto, ma quando un processo termina il job passa allo stato TERMINATED.
+Quando tutti i processi sono nello stato TERMINATED il simulatore termina.
+Ad ogni ciclo vengono aggiornate le statistiche, per poi essere scritte in un file, il quale è presente nella libreria macro.h, descritta nella \hyperref[sec:macro.h]{sezione~\ref*{sec:macro.h}}, a terminazione della simulazione.
+
+\section{Libreria sjf.h}
+\label{sec:sjf.h}
+Proseguendo con l'analisi delle varie librerie in cui si implementano vari algoritmi di scheduling, la successiva è la libreria \textit{sjf.h} \hyperref[ref:sjfh]{[\ref*{ref:sjfh}]}.
+Questa libreria implementa la politica di scheduling shortest job first.
+Come per le precedenti librerie fcfs.h e rr.h, faremo riferimento al seguente schema a stati finiti per descrivere al meglio i passaggi fra stati in un processo.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1\textwidth]{schema a stati finiti SJF.jpg}
+  \caption{Schema a stati finiti SJF}
+\end{figure}
+
+Come nei precedenti casi, ogni processo appena creato viene inserito in una lista dei processi e si trova nello stato NOT\_STATE.
+Si procede con il primo del simulatore, fino a quando timing non raggiungerà max\_time.
+Ad ogni clock si controlla la lista, se un processo ha il tempo di arrivo uguale a timing passerà in stato READY.
+Per tutti i processi in READY e WAITING vengono fatti i seguenti due controlli per poter passare in RUNNING, i quali devono risultare entrambi positivi:
+\begin{itemize}
+    \item deve essere disponibile la risorsa richiesta, quindi in particolare almeno un core;
+    \item la durata del job deve essere la minima fra tutti i processi in READY.
+\end{itemize}
+Come abbiamo detto nella \hyperref[ssec:sjf]{sezione~\ref*{ssec:sjf}}, il problema di questo algoritmo è prevedere la durata del job di ogni singolo processo in arrivo, questo poiché nella realtà i processi non dichiarano per quanto tempo occuperanno una risorsa.
+Nel nostro caso, però, abbiamo fatto l'ipotesi che i processi lo dichiarino al loro arrivo.
+Così facendo si implementa facilmente una funzione che permette di verificare se un processo ha la durata minima fra tutti quelli in READY.
+Risultate positive entrambe le condizioni sopra descritte, il processo entra in RUNNING.
+Altrimenti entra in WAITING.
+Ogni processo in RUNNING diminuisce di una unità la durata rimanente del suo job ad ogni clock.
+Quando la durata è uguale a zero il processo libera la risorsa fino ad allora occupa, ed entra in BURST.
+In questo stato, come per i precedenti algoritmi, viene calcolato un nuovo tempo di arrivo, nuova durata del job ed una nuova richiesta di risorsa per il processo, come spiegato a fine \hyperref[sec:process.h]{sezione~\ref*{sec:process.h}}.
+Una volta terminato il primo ciclo del simulatore, ossia quando timing risulta uguale max\_time, si entra nel secondo ciclo, ove il procedimento è lo stesso di quello sopra descritto.
+Unica cosa che cambia è che ogni processo terminato il proprio job non va in BURST, ma bensì in TERMINATED, non richiedendo ulteriori risorse.
+Quando tutti i processi saranno in TERMINATED il simulatore termina la sua esecuzione.
+Ad ogni ciclo vengono inoltre aggiornate le statistiche per poi essere scritte in un file a termine dell'esecuzione.
+
+\chapter{Esempi d'uso}
 \label{chap:3}
 
 \chapter{Conclusioni}
@@ -320,6 +382,12 @@ Libreria macro.h \url{https://github.com/simo-30/Relazione_finale_laurea_trienna
 
 \bibitem{ref:fcfsh}\label{ref:fcfsh}
 Libreria fcfs.h \url{https://github.com/simo-30/Relazione_finale_laurea_triennale/blob/master/codice/FCFS/fcfs.h}
+
+\bibitem{ref:rrh}\label{ref:rrh}
+Libreria rr.h \url{https://github.com/simo-30/Relazione_finale_laurea_triennale/blob/master/codice/RR/rr.h}
+
+\bibitem{ref:sjfh}\label{ref:sjfh}
+Libreria sjf.h \url{https://github.com/simo-30/Relazione_finale_laurea_triennale/blob/master/codice/SJF/sjf.h}
 
 \end{thebibliography}
 
