@@ -49,7 +49,7 @@ void srjf_to_ready_proc(ListProcess* list, int timing) {
 	aux=list->first;
 	int i;
 	for (i=0; i<list->size; i++) {
-		if (aux->info->time_arrive==timing) {
+		if (aux->info->time_arrive<=timing) {
 			if (is_not_state(aux->info)==1 || is_burst(aux->info)==1) {
 				to_ready(aux->info);
 			}
