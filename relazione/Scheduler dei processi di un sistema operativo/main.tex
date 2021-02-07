@@ -44,10 +44,10 @@
 \course[]{Ingegneria informatica ed automatica}
 \courseorganizer{Facolt\`a di Ingegneria dell'informazione, informatica e statistica}
 \submitdate{2020/2021}
-\copyyear{2020}
+\copyyear{2021}
 \advisor{Prof. Giorgio Grisetti}
 \authoremail{trenta.1724141@studenti.uniroma1.it}
-\examdate{22 September 2015}
+\examdate{Marzo 2021}
 \examiner{Prof. ...} \examiner{Prof. ...} \examiner{Prof. ...}  \examiner{Prof. ...}  \examiner{Prof. ...} \examiner{Prof. ...}  \examiner{Prof. ...} 
 
 %we refer to http://ctan.mirrorcatalogs.com/macros/latex/contrib/sapthesis/sapthesis-doc.pdf for an exhaustive description of the sapthesis documentclass.
@@ -59,7 +59,7 @@
 \maketitle
 
 \begin{abstract}
-Tramite un progetto di simulazione di uno scheduler di un sistema operativo, si analizzano le varie politiche di scheduling fra le più comuni, ossia first came first served (FCFS), round robin (RR), shortest job first (SJF) e shortest remaining job first (SRJF).
+Tramite un progetto di simulazione di uno scheduler di un sistema operativo, si testano ed analizzano le varie politiche di scheduling fra le più comuni, ossia first came first served (FCFS), round robin (RR), shortest job first (SJF) e shortest remaining job first (SRJF).
 \end{abstract}
 
 \tableofcontents
@@ -70,13 +70,14 @@ Tramite un progetto di simulazione di uno scheduler di un sistema operativo, si 
 Questa funzione di un sistema operativo è pressoché essenziale, senza la quale le risorse disponibili non potrebbero essere riservate e utilizzate in modo efficiente.
 
 \bigskip
-Nel \hyperref[chap:1]{Capitolo~\ref*{chap:1}}
+Nel \hyperref[chap:1]{Capitolo~\ref*{chap:1}} si descrive uno scheduler ed i vari algoritmi che verranno poi implementati nel simulatore.
 
 \bigskip
-Nel \hyperref[chap:2]{Capitolo~\ref*{chap:2}} 
+Nel \hyperref[chap:2]{Capitolo~\ref*{chap:2}} viene fatta una panoramica su tutte le librerie del simulatore scritte.
+In particolare ci si concentra sulle librerie che permettono l'implementazione delle politiche di scheduling.
 
 \bigskip
-Nel \hyperref[chap:3]{Capitolo~\ref*{chap:3}} 
+Nel \hyperref[chap:3]{Capitolo~\ref*{chap:3}} si analizzano i risultati dell'esecuzione del simulatore con vari casi di test, studiandoli per ogni singola politica.
 
 \chapter{Lo scheduler in un sistema operativo}
 \label{chap:1} 
@@ -266,13 +267,13 @@ Per finire ci sono anche delle variabili numeriche per la definizioni del numero
 \label{sec:fcfs.h}
 Iniziamo con la libreria \textit{fcfs.h} \hyperref[ref:fcfsh]{[\ref*{ref:fcfsh}]} a descrivere le varie implementazioni degli algoritmi di scheduling, riprendendo l'ordine in cui sono stati presentati nella \hyperref[sec:politiche]{sezione~\ref*{sec:politiche}}.
 Per cui la prima politica sarà first came first served.
-Per meglio descrivere la sua implementazione faremo riferimento al seguente schema a stati finiti.
-\begin{figure}[h]
+Per meglio descrivere la sua implementazione faremo riferimento allo schema a stati finiti di figura \hyperref[figura:fcfs]{[\ref*{figura:fcfs}]}.
+\begin{figure}[ht!]
   \centering
   \includegraphics[width=1\textwidth]{schema a stati finiti FCFS.JPG}
   \caption{Schema a stati finiti FCFS}
+  \label{figura:fcfs}
 \end{figure}
-
 Ogni processo simulato (da ora in avanti per non appesantire la scrittura sarà denominato semplicemente processo, ma si intenderà sempre simulato) appena creato si trova nello stato NOT\_STATE.
 Viene inserito in una lista con tutti i processi, viene creato un array contenente i pid dei processi che arriveranno.
 Il simulatore inizia il suo percorso, andando a procedere per ogni singolo clock del processore (anche questo simulato), chiamato \textit{timing}.
@@ -296,13 +297,13 @@ Tale struttura dati contiene:
     \item un intero, indicante il pid del processo che sta utilizzando il core, chiamato \textit{pid};
     \item un intero, indicante il tempo rimanente per l'uso del core, chiamato \textit{core\_time}.
 \end{itemize}
-Prendendo in considerazione lo schema a stati finiti della seguente immagine analizziamo gli stati dei processi.
-\begin{figure}[h]
+Prendendo in considerazione lo schema a stati finiti dell'immagine \hyperref[figura:rr]{[\ref*{figura:rr}]} analizziamo gli stati dei processi.
+\begin{figure}[ht!]
   \centering
   \includegraphics[width=1\textwidth]{schema a stati finiti RR.JPG}
   \caption{Schema a stati finiti RR}
+  \label{figura:rr}
 \end{figure}
-
 Ogni singolo processo appena creato si trova in stato NOT\_STATE e viene inserito nella lista dei processi.
 Il simulatore inizia il suo primo ciclo, ad ogni clock cerca nella lista dei processi quelli per cui time\_arrive è uguale a timing.
 Tali processi passano allo stato READY, essendo arrivati, e vengono inseriti in una coda per poterli gestire in base al loro arrivo.
@@ -321,13 +322,13 @@ Ad ogni ciclo vengono aggiornate le statistiche, per poi essere scritte in un fi
 \label{sec:sjf.h}
 Proseguendo con l'analisi delle varie librerie in cui si implementano vari algoritmi di scheduling, la successiva è la libreria \textit{sjf.h} \hyperref[ref:sjfh]{[\ref*{ref:sjfh}]}.
 Questa libreria implementa la politica di scheduling shortest job first.
-Come per le precedenti librerie fcfs.h e rr.h, faremo riferimento al seguente schema a stati finiti per descrivere al meglio i passaggi fra stati in un processo.
-\begin{figure}[h]
+Come per le precedenti librerie fcfs.h e rr.h, faremo riferimento allo schema a stati finiti per descrivere al meglio i passaggi fra stati in un processo di figura \hyperref[figura:sjf]{[\ref*{figura:sjf}]}.
+\begin{figure}[ht!]
   \centering
   \includegraphics[width=1\textwidth]{schema a stati finiti SJF.jpg}
   \caption{Schema a stati finiti SJF}
+  \label{figura:sjf}
 \end{figure}
-
 Come nei precedenti casi, ogni processo appena creato viene inserito in una lista dei processi e si trova nello stato NOT\_STATE.
 Si procede con il primo del simulatore, fino a quando timing non raggiungerà max\_time.
 Ad ogni clock si controlla la lista, se un processo ha il tempo di arrivo uguale a timing passerà in stato READY.
@@ -341,7 +342,7 @@ Nel nostro caso, però, abbiamo fatto l'ipotesi che i processi lo dichiarino al 
 Così facendo si implementa facilmente una funzione che permette di verificare se un processo ha la durata minima fra tutti quelli in READY.
 Risultate positive entrambe le condizioni sopra descritte, il processo entra in RUNNING.
 Altrimenti entra in WAITING.
-Ogni processo in RUNNING diminuisce di una unità la durata rimanente del suo job ad ogni clock.
+Ogni processo in RUNNING diminuisce di una unità la durata rimanente del suo job ad ogni clock e rimane in questo stato fino alla terminazione del job.
 Quando la durata è uguale a zero il processo libera la risorsa fino ad allora occupa, ed entra in BURST.
 In questo stato, come per i precedenti algoritmi, viene calcolato un nuovo tempo di arrivo, nuova durata del job ed una nuova richiesta di risorsa per il processo, come spiegato a fine \hyperref[sec:process.h]{sezione~\ref*{sec:process.h}}.
 Una volta terminato il primo ciclo del simulatore, ossia quando timing risulta uguale max\_time, si entra nel secondo ciclo, ove il procedimento è lo stesso di quello sopra descritto.
@@ -349,8 +350,287 @@ Unica cosa che cambia è che ogni processo terminato il proprio job non va in BU
 Quando tutti i processi saranno in TERMINATED il simulatore termina la sua esecuzione.
 Ad ogni ciclo vengono inoltre aggiornate le statistiche per poi essere scritte in un file a termine dell'esecuzione.
 
+\section{Libreria srjf.h}
+\label{sec:srjf.h}
+L'ultimo algoritmo implementato in questo simulatore è nella libreria \textit{srjf.h} \hyperref[ref:srjfh]{[\ref*{ref:srjfh}]}.
+Questa politica di scheduling è un miglioramento della precedente sjf, e come in essa il principale problema è riuscire a predire la durata del job di un processo in arrivo, ma come già detto, abbiamo fatto l'ipotesi che ogni processo in arrivo dichiari per quanto tempo richiede la risorsa.
+Anche in questo caso andiamo a descrivere al meglio tale politica con lo schema a stati a finiti nell'immagine \hyperref[figura:srjf]{[\ref*{figura:srjf}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Schema a stati finiti SRJF.jpg}
+  \caption{Schema a stati finiti SRJF}
+  \label{figura:srjf}
+\end{figure}
+Come per gli altri algoritmi, ogni processo appena creato viene inserito in una lista con tutti i processi, ed è nello stato NOT\_STATE.
+Dopo di ciò inizia il primo ciclo di scheduling, ed ad ogni clock se il tempo di arrivo del processo è uguale a timing, il processo entra in READY.
+Da qui, almeno teoricamente, la soluzione rispetto al shortest job first è più semplice, in quanto unica condizione che deve essere verificata è che la durata di un determinato processo sia la minore fra tutti quelli in READY, WAITING e RUNNING.
+Ciò avviene ad ogni clock, per un numero di processi uguale o minore al numero di core.
+Per cui ci saranno in RUNNING sempre i processi che risulta abbiano la durata del job minima fra tutti quelli negli stati READY, WAITING e RUNNING.
+Tutti i processi che non andranno in RUNNING, passeranno allo stato WAITING.
+Per gli altri processi in RUNNING si riduce di una unità la durata rimanente del job.
+Quando un processo termina il proprio lavoro entra nello stato BURST, dove richiederà delle nuove risorse, con una nuova durata ed un nuovo tempo di arrivo, come spiegato a fine \hyperref[sec:process.h]{sezione~\ref*{sec:process.h}}.
+Una volta che il ciclo iniziale è terminato, ossia timing è maggiore o uguale a max\_time, si entra nel ciclo finale.
+In esso i processi che terminano il job non entrano in BURST, ma vanno nello stato TERMINATED, ove non richiedono ulteriori risorse, ma semplice hanno terminato la propria esecuzione.
+Quando tutti i processi risulteranno in TERMINATED il simulatore termina.
+Durante ogni ciclo vengono sempre aggiornate le statistiche, che a fine simulazione vengono scritte in un file.
+
 \chapter{Esempi d'uso}
 \label{chap:3}
+\section{Casi analizzati}
+\label{sec:casi}
+Il simulatore implementato ha come corpo principale nel main un ciclo, nel quale vengono fatte partire una alla volta tutte le politiche sopra analizzate ed implementate.
+Successivamente i dati raccolti vengono cumulati, mantenendone la comprensibilità in base all'origine dei casi da cui sono scaturiti.
+Quest'ultimi sono ben 24 casi a politica, e per un'analisi più accurata ogni singolo caso è ripetuto 10 volte, per un totale di 240 situazioni a politica, per un complessivo di 960.
+Le chiamate alle funzioni di scheduling sono state effettuate con i seguenti casi:
+\begin{itemize}
+    \item 1 core, 10 processi, tempo medio del job 10;
+    \item 2 core, 10 processi, tempo medio del job 10;
+    \item 4 core, 10 processi, tempo medio del job 10;
+    \item 8 core, 10 processi, tempo medio del job 10;
+    \item 16 core, 10 processi, tempo medio del job 10;
+    \item 32 core, 10 processi, tempo medio del job 10; 
+    \item 1 core, 20 processi, tempo medio del job 10;
+    \item 2 core, 20 processi, tempo medio del job 10;
+    \item 4 core, 20 processi, tempo medio del job 10;
+    \item 8 core, 20 processi, tempo medio del job 10;
+    \item 16 core, 20 processi, tempo medio del job 10;
+    \item 32 core, 20 processi, tempo medio del job 10;
+    \item 1 core, 10 processi, tempo medio del job 20;
+    \item 2 core, 10 processi, tempo medio del job 20;
+    \item 4 core, 10 processi, tempo medio del job 20;
+    \item 8 core, 10 processi, tempo medio del job 20;
+    \item 16 core, 10 processi, tempo medio del job 20;
+    \item 32 core, 10 processi, tempo medio del job 20; 
+    \item 1 core, 20 processi, tempo medio del job 20;
+    \item 2 core, 20 processi, tempo medio del job 20;
+    \item 4 core, 20 processi, tempo medio del job 20;
+    \item 8 core, 20 processi, tempo medio del job 20;
+    \item 16 core, 20 processi, tempo medio del job 20;
+    \item 32 core, 20 processi, tempo medio del job 20.
+\end{itemize}
+Ora andremo ad analizzare i risultati ottenuti per ogni singola politica, verificando anche così successivamente nelle conclusioni finali i migliori usi per l'implementazione di ognuna.
+Premetto una breve descrizione dei grafici presenti successivamente.
+In essi sono presenti delle colonne, quelle arancioni rappresentano il numero dei processi, quelle blu il numero di core.
+Inoltre ci sono 2 curve, quella gialla rappresenta il tempo medio di completamento dei processi, mentre quella grigia, la più interessante, il tempo medio di attesa di ogni singolo processo.
+Essendo il tempo di completamento qui considerato come il tempo da quando un processo arriva allo scheduler a quando termina, questo fattore può essere considerato come un coefficiente di velocità dello scheduler; ciò significa che per un valore basso si avrà che saranno stati terminati più processi in un uguale arco di tempo ma con un corrispettivo valore di tempo medio di completamento più elevato.
+
+\section{Analisi casi in first came first served}
+\label{sec:analisiFCFS}
+Il primo metodo di scheduling in cui si sono andati ad acquisire i dati dei casi sopracitati è il \textit{first came first served}.
+Ripetendo velocemente questo approccio, i processi vengono schedulati e portati ad esecuzione in base al loro tempo di arrivo, quello che arriva prima, viene schedulato e terminato per primo.
+Possiamo vedere grazie al grafico
+\hyperref[figura:p10j10fcfs]{[\ref*{figura:p10j10fcfs}]} i primi 6 casi, ossia da 1 a 32 core per 10 processi ed un tempo medio del job di 10.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi10 job10 fcfs.jpg}
+  \caption{Grafico processi10 job10 fcfs}
+  \label{figura:p10j10fcfs}
+\end{figure}
+Possiamo notare subito dal grafico \hyperref[figura:p10j10fcfs]{[\ref*{figura:p10j10fcfs}]} l'andamento dei processi. 
+Si vede come la saturazione dei core e delle relative risorse è subito presente, ma si attenua significativamente già quando si hanno 8 core, portando quasi a 0 il tempo di attesa.
+Con più core il tempo di attesa è praticamente nullo.
+Inoltre notiamo come anche il tempo medio di completamento si stabilizza dagli 8 core in poi, rimanendo stabile.
+Successivamente analizziamo il caso per cui abbiamo sempre da 1 core a 32 core per 10 processi, ma con un tempo medio del job di 20, ben rappresentato nel grafico \hyperref[figura:p10j20fcfs]{[\ref*{figura:p10j20fcfs}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi10 job20 fcfs.jpg}
+  \caption{Grafico processi10 job20 fcfs}
+  \label{figura:p10j20fcfs}
+\end{figure}
+In quest'ultimo notiamo come le 2 curve si appiattiscono molto velocemente.
+Infatti, nonostante si parte con valori relativamente elevati per entrambi, tempo di attesa e completamento, già con 2 core è presente un calo sostanziale.
+Per il completamento si ha una riduzione del circa 20\%, mentre per l'attesa del circa 73\%.
+Per entrambi si ha un assestamento, come nel caso precedente, a partire dagli 8 core, da cui il tempo di attesa è sostanzialmente nullo.
+Successivamente analizziamo il set di test per cui abbiamo da 1 core ai 32 core, 20 processi e un tempo medio a processo del job di 10.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi20 job10 fcfs.jpg}
+  \caption{Grafico processi20 job10 fcfs}
+  \label{figura:p20j10fcfs}
+\end{figure}
+I risultati di questi casi sono presenti nel grafico \hyperref[figura:p20j10fcfs]{[\ref*{figura:p20j10fcfs}]}.
+Qui si evince ancor di più la rapida decrescita delle curve di nostro interesse all'aumentare dei core disponibili.
+Anche in questo caso la decrescita maggiore si ha da 1 core a 2 core, dove abbiamo una riduzione del 20\% circa per il tempo di completamento, e del 68\% circa per il tempo di attesa.
+In questo caso il tempo di completamento rimane stabile dagli 8 core in poi, mentre quello di attesa si riduce a zero dai 16 core.
+Ciò ci fa intuire che in questi casi lo scheduler risulta saturo, anche per un numero maggiore di core disponibili rispetto ai precedenti casi.
+Come ultimo set di casi abbiamo quello da 1 a 32 core disponibili, 20 processi e un tempo per ogni singolo processo del job di 20.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi20 job20 fcfs.jpg}
+  \caption{Grafico processi20 job20 fcfs}
+  \label{figura:p20j20fcfs}
+\end{figure}
+Il grafico \hyperref[figura:p20j20fcfs]{[\ref*{figura:p20j20fcfs}]} ne racchiude i relativi risultati.
+Anche in quest'ultimo grafico si desume che la decrescita delle due curve si ha nei primi aumenti dei core disponibili, ma rispetto ai casi precedenti si ha una riduzione importante anche al passaggio dai 2 ai 4 core.
+Tuttavia la decrescita maggiore si ha sempre da 1 core a 2 core, con una riduzione del 41\% circa per il tempo di completamento, e del 62\% circa per il tempo di attesa.
+Mentre al passaggio complessivo da 1 core a 4 core disponibili, si ha una riduzione del 54\% circa per il completamento, e del 90\% per l'attesa.
+La curva gialla rimane stabile a partire dai 16 core, mentre quella blu sostanzialmente si azzera dai 16 core.
+
+\section{Analisi casi in round robin}
+\label{sec:analisiRR}
+Analizziamo ora la politica \textit{round robin}, la quale, in breve, schedula i processi in ordine di arrivo, ma ad ognuno in esecuzione concede un quanto di tempo, scaduto il quale viene inserito in coda ai processi in attesa.
+Cominciamo tale indagine con i primi 6 casi, ossia da 1 a 32 core per 10 processi ed un tempo medio del job di 10.
+I risultati li possiamo vedere nel grafico a figura \hyperref[figura:p10j10rr]{[\ref*{figura:p10j10rr}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi10 job10 rr.jpg}
+  \caption{Grafico processi10 job10 rr}
+  \label{figura:p10j10rr}
+\end{figure}
+Da esso possiamo notare come la decrescita del tempo di attesa sia del circa 62\% passando da un core a 2 core, ed un decremento simile, in percentuale, passando da 2 a 4 core.
+Vediamo, però, come il tempo di attesa non si azzera mai, anche se comunque rimane di un valore relativamente piccolo da 16 core in poi.
+Mentre per il tempo medio di completamento vediamo che non c'è una diminuzione drastica, ma costante e relativamente minima, infatti passando da 1 a 4 core abbiamo una decrescita del 14\% circa.
+Anche il tempo di completamento rimane costante da 16 core in poi.
+Successivamente confrontiamo i risultati per i test in cui sono presenti sempre 10 processi, da 1 a 32 core, ma il job medio richiesto è di 20.
+Il grafico con tali risultati è a figura \hyperref[figura:p10j20rr]{[\ref*{figura:p10j20rr}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi10 job20 rr.jpg}
+  \caption{Grafico processi10 job20 rr}
+  \label{figura:p10j20rr}
+\end{figure}
+Qui notiamo subito la forte diminuzione del tempo di attesa.
+Infatti passando da uno a due core si ha un tempo medio di attesa del -67\% circa, ed un ulteriore decrescita passando da 2 a 4 core, sempre del 67\% circa.
+Mentre dagli 8 core rimane stabile, ma mai portandosi vicino allo 0, piuttosto rimane intorno a 5.
+Invece per il tempo medio di completamento si ha un'unica sostanziale diminuzione, passando da 1 a 2 core, corrispondente a circa il 18\%.
+Mentre successivamente, oltre ad minima variazione del -6\% circa da 2 a 4 core, non si hanno notevoli cambiamenti, e la curva rimane stabile intorno ad un valore compreso fra 180 e 174.
+Passando al set successivo di test, ossia per 20 processi con job medio di 10 e da 1 a 32 core, abbiamo nella figura \hyperref[figura:p20j10rr]{[\ref*{figura:p20j10rr}]} i relativi risultati.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi20 job10 rr.jpg}
+  \caption{Grafico processi20 job10 rr}
+  \label{figura:p20j10rr}
+\end{figure}
+In questi casi notiamo la forte decrescita per il tempo di attesa medio, del 64\% circa, nel primo aumento del numero di core disponibili.
+Mentre si ha un decremento del 85\% circa passando da 1 a 4 core.
+Inoltre vediamo come la diminuzione sia presente in tutti i passaggi di aumento del numero di core, terminando con un valore di 1,7 avendo 32 core disponibili.
+Per il tempo di completamento invece abbiamo una diminuzione del 16\% circa passando da 1 a 2 core, e del 11\% passando da 2 a 4.
+Anche successivamente, con l'aumentare del numero di core sono presenti dei decrementi nel tempo di completamento, ma non rilevanti come nei primi 2 casi.
+Nonostante ciò però abbiamo che la curva continua a deflettersi continuamente, arrivando per 32 core disponibili ad un valore di 165,44.
+Come ultima analisi per il round robin abbiamo i casi da 1 a 32 core, 20 processi e job medio 20, con i risultati nel grafico a figura \hyperref[figura:p20j20rr]{[\ref*{figura:p20j20rr}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi20 job20 rr.jpg}
+  \caption{Grafico processi20 job20 rr}
+  \label{figura:p20j20rr}
+\end{figure}
+In questi casi vediamo come con un solo core disponibile il tempo di attesa sia molto elevato, valore che diminuisce del 60\% circa raddoppiando i core, riduzione presente anche passando da 2 a 4 core del 65\% circa, e che rimane presente anche passando a 8 core.
+Mentre per 16 e 32 core il tempo di attesa rimane pressoché costante, attestandosi intorno al valore di 5.
+Passando invece alla curva del tempo di completamento vediamo come anche qui sia presente una notevole riduzione passando da 1 a 2 core, del 41\% circa.
+Mentre successivamente, per gli ulteriori aumenti del numero di core la diminuzione sia costante attestandosi ad un -10\% circa fino ai 16 core.
+Dai 16 ai 32 core invece il valore rimane stabile intorno a 170, con una leggera decrescita.
+
+\section{Analisi casi in shortest job first}
+\label{sec:analisiSJF}
+Di seguito andiamo ad analizzare la politica \textit{shortest job first}, la quale, in breve, schedula e manda in esecuzione i processi in base al tempo della risorsa che richiedono, dal più breve al più lungo, facendo terminare prima quelli già in esecuzione.
+Partiamo subito con il confronto dei risultati per i primi 6 casi, ossia per 10 processi, con tempo medio del job di 10 e numero di core disponibili da 1 a 32.
+Nella figura \hyperref[figura:p10j10sjf]{[\ref*{figura:p10j10sjf}]} ne troviamo i risultati.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi10 job10 sjf.jpg}
+  \caption{Grafico processi10 job10 sjf}
+  \label{figura:p10j10sjf}
+\end{figure}
+Da questo grafico vediamo immediatamente che il tempo di attesa, curva grigia, parte da un valore non troppo elevato e già nel primo passaggio si riduce del 65\% circa.
+Mentre passando da 2 a 4 core si ha una riduzione pressoché totale, portando il tempo di attesa praticamente a zero, e rimanendo tale anche successivamente.
+Passando ad osservare la curva gialla, rappresentante il tempo medio di completamento, notiamo anche qui un calo passando da 1 a 2 core, del 12\% circa.
+Successivamente non si hanno riduzioni consistenti, ed il tempo di completamento rimane stabile a partire dagli 8 core disponibili.
+I prossimi test che andiamo a visualizzare ed analizzare comprendono 10 processi, tempo medio del job richiesto di 20 e numero di core disponibili da 1 a 32.
+I risultati sono presenti nel grafico a figura \hyperref[figura:p10j20sjf]{[\ref*{figura:p10j20sjf}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi10 job20 sjf.jpg}
+  \caption{Grafico processi10 job20 sjf}
+  \label{figura:p10j20sjf}
+\end{figure}
+Osservando il tempo di attesa vediamo come la riduzione sia presente fino ai 4 core, dopo il tempo di attesa si attesta e rimane stabile vicino a 0.
+Nel passaggio da 1 a 2 core si ha una diminuzione del 68\% circa, mentre da 2 a 4 core del 78\%, e successivamente si azzera.
+Per il tempo di completamento abbiamo un comportamento analogo.
+Da 1 a 2 core si ha un decremento del 29\% mentre da 2 a 4 core del 9\%.
+Dai 4 core disponibili in poi la curva gialla rimane stabile.
+Passiamo ai risultati per i test in cui ci sono 20 processi, tempo medio del job di 10 e da 1 a 32 core disponibili.
+Nella figura \hyperref[figura:p20j10sjf]{[\ref*{figura:p20j10sjf}]} è presente un grafico che ne racchiude i risultati.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi20 job10 sjf.jpg}
+  \caption{Grafico processi20 job10 sjf}
+  \label{figura:p20j10sjf}
+\end{figure}
+Anche in questi casi notiamo l'abbassamento della curva grigia, il tempo medio di attesa, fino a quando si hanno 8 core, dai quali in poi rimane costante, e praticamente a 0.
+In particolare abbiamo una riduzione del 63\% circa passando da 1 a 2 core, del 57\% circa da 2 a 4 core ed un azzeramento passando agli 8 core disponibili.
+Per il tempo di completamento i risultati sono analoghi.
+Abbiamo delle riduzioni più o meno costanti fino ad avere 8 core disponibili, da cui in poi la curva gialla rimane stabile.
+Passando da 1 a 2 core si ha un cambiamento del -29\% circa, da 2 a 4 del -12\% circa, ed infine da 4 a 8 core di un -5\% appena.
+Potremmo anche supporre che da 4 core in poi, essendo la riduzione da 4 a 8 minima, che il tempo di completamento rimane stabile.
+Gli ultimi risultati riguardano i test per 20 processi, con tempo medio del job richiesto di 20 e da 1 a 32 core disponibili, riassunti nel grafico a figura \hyperref[figura:p20j20sjf]{[\ref*{figura:p20j20sjf}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi20 job20 sjf.jpg}
+  \caption{Grafico processi20 job20 sjf}
+  \label{figura:p20j20sjf}
+\end{figure}
+Partiamo con l'analisi del tempo di attesa, curva grigia, e notiamo come il calo sia costante e l'attesa si azzera unicamente quando si hanno 32 core disponibili.
+Nei casi specifici abbiamo una riduzione del 54\% circa da 1 a 2 core, del 65\% circa da 2 a 4 core, del 77\% circa da 4 a 8 core e di un ulteriore 70\% circa passando da 8 a 16 core.
+Passando da 16 a 32 core il tempo di attesa si azzera.
+Osservando invece la curva gialla, rappresentante il tempo di completamento, abbiamo anche qui un calo fino agli 8 core, partendo da un valore elevato.
+In particolare abbiamo un calo del 41\% circa passando da 1 a 2 core, del 28\% circa da 2 a 4 core, del 11\% circa da 4 a 8 core, mentre successivamente rimane stabile.
+C'è da notare come però passando dai 16 ai 32 core il tempo di completamento aumenta, anche se solo di poco (6\% circa), dovuto ad una maggiore disponibilità di risorse.
+
+\section{Analisi casi in shortest remaining job first}
+\label{sec:analisiSRJF}
+Gli ultimi risultati che andiamo ad analizzare sono quelli derivati dalla politica \textit{shortest remaining job first}.
+In essa i processi vengono schedulati come la precedente politica shortest job first, ma a differenza di essa, se arriva un processo che richiede meno tempo rispetto ad uno che è già in esecuzione, quest'ultimo viene messo nella coda dei processi arrivati, per far posto al processo con job richiesto minore fra tutti quelli arrivati fino a quel momento.
+I primi risultati che abbiamo sono quelli dovuti al set per cui si hanno 10 processi, tempo del job di 10 e da 1 a 32 core disponibili.
+Tali risultati sono raffigurati nel grafico a figura \hyperref[figura:p10j10srjf]{[\ref*{figura:p10j10srjf}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi10job10 srjf.jpg}
+  \caption{Grafico processi10 job10 srjf}
+  \label{figura:p10j10srjf}
+\end{figure}
+Possiamo subito notare delle sostanziali differenze rispetto ai casi precedenti.
+Infatti in questo caso non sono presenti delle diminuzioni apprezzabili nel tempo di completamento.
+La decrescita complessiva da 1 a 32 core è del 9\% circa.
+Mentre nel tempo di attesa è presente un calo, del 50\% circa da 1 a 2 core e del 20\% passando da 2 a 4 core.
+Successivamente rimane stabile intorno ad un valore di 6.
+A seguire confrontiamo i risultati per i test dovuti a 10 processi, tempo medio del job di 20 e da 1 a 32 core disponibili, presenti nel grafico nella figura \hyperref[figura:p10j20srjf]{[\ref*{figura:p10j20srjf}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi10job20 srjf.jpg}
+  \caption{Grafico processi10 job20 srjf}
+  \label{figura:p10j20srjf}
+\end{figure}
+In questi casi vediamo come sia presente un calo sia del tempo di attesa che di completamento.
+Del primo, curva grigia, abbiamo un calo fino ai 4 core, dopo rimane stabile.
+In particolare abbiamo una riduzione del 41\% circa passando da 1 a 2 core, e del 20\% circa passando da 2 a 4 core.
+Per il tempo di completamento, invece, la riduzione significativa è fino ai 2 core, successivamente è presente ma non sufficientemente apprezzabile.
+Da 1 a 2 core abbiamo un decremento del 10\% circa.
+Il terzo set di casi da esaminare è per 20 processi, tempo medio del job di 10 e numero di core disponibili da 1 a 32.
+Nella figura \hyperref[figura:p20j10srjf]{[\ref*{figura:p20j10srjf}]} possiamo vedere il grafico che ne raffigura i risultati.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi20job10 srjf.jpg}
+  \caption{Grafico processi20 job10 srjf}
+  \label{figura:p20j10srjf}
+\end{figure}
+Qui abbiamo un calo, per il tempo di attesa, fino ai 4 core, e successivamente la curva grigia, che ne rappresenta l'andamento, rimane stabile.
+In particolare passando da 1 a 2 core disponibili abbiamo una decrescita del 56\% circa, mentre da 2 a 4 core di un 17\% circa.
+Per quanto riguarda il tempo di completamento il decremento è presente anche qui fino ai 4 core per poi stabilizzarsi.
+Si ha un calo del 11\% circa passando da 1 a 2 core e del 5\% circa da 2 a 4 core.
+Gli ultimi casi che andiamo ad osservare sono per 20 processi, tempo medio richiesto per il job di 20 e numero di core disponibili da 1 a 32.
+I risultati di questi casi li possiamo vedere rappresentati nel grafico a figura \hyperref[figura:p20j20srjf]{[\ref*{figura:p20j20srjf}]}.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{Grafico processi20job20 srjf.jpg}
+  \caption{Grafico processi20 job20 srjf}
+  \label{figura:p20j20srjf}
+\end{figure}
+Anche in questi casi abbiamo dei cali in entrambe le curve, per il tempo di attesa e di completamento, fino ai 4 core, punto da cui si assestano e rimangono stabili.
+Nel dettaglio abbiamo per il tempo di attesa un decremento del 50\% circa passando da 1 a 2 core e del 29\% circa da 2 a 4 core.
+Da notare come la relativa curva sia partita da un valore elevato.
+Per il tempo di completamento abbiamo un valore di partenza elevato, che si abbassa del 34\% circa passando da 1 a 2 core e del 9\% da 2 a 4 core.
+Da notare come in tutti i casi del SRJF il tempo di attesa non si sia mai azzerato, o comunque portato vicino allo 0, ma rimasto sopra a valori apprezzabili.
+Tale dettaglio lo andremo ad esaminare nel prossimo capitolo conclusivo.
 
 \chapter{Conclusioni}
 \label{chap:4}
@@ -388,6 +668,9 @@ Libreria rr.h \url{https://github.com/simo-30/Relazione_finale_laurea_triennale/
 
 \bibitem{ref:sjfh}\label{ref:sjfh}
 Libreria sjf.h \url{https://github.com/simo-30/Relazione_finale_laurea_triennale/blob/master/codice/SJF/sjf.h}
+
+\bibitem{ref:srjfh}\label{ref:srjfh}
+Libreria srjf.h \url{https://github.com/simo-30/Relazione_finale_laurea_triennale/blob/master/codice/SRJF/srjf.h}
 
 \end{thebibliography}
 
